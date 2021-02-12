@@ -72,6 +72,11 @@ http://gitextensions.github.io/
 ![image-pullrequest](project-workflow-images/pullrequest.png)
 ![image-inreview](project-workflow-images/inreview.png)
 
+3. ##### Link to Issue
+
+![image-linked](project-workflow-images/linked.png)
+![image-linked2](project-workflow-images/linked2.png)
+
 3. ##### After approval, merge the pull request.
 
 ![image-mergepr](project-workflow-images/mergepr.png)
