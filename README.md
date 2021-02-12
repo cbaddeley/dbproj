@@ -21,37 +21,78 @@ https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-
 
 https://github.com/cbaddeley/dbproj
 
+###### Git Tutorial
 
+https://git-scm.com/docs/gittutorial
+
+###### Git GUIs 
+
+http://gitextensions.github.io/
 
 ## Project Workflow
 
 #### Create Issue
 
-1. Click on the New Issue button in the Issues tab
+1. ##### Click on the New Issue button in the Issues tab
 
 ![image-newissue](project-workflow-images/newissue.png)
 
-2. Fill out the form. You don't need to assign it to anyone, but please **add DBProj to the Projects**
+2. ##### Fill out the form. You don't need to assign it to anyone, but please **add DBProj to the Projects**
 
 ![image-issueform](project-workflow-images/issueform.png)
 
-3. Click on "Submit new issue" and confirm that issue is added to the project board
+3. ##### Click on "Submit new issue" and confirm that issue is added to the project board
 
 ![image-issueform](project-workflow-images/addedissue.png)
 
 #### Start Working On Issue
 
-1. Create a local branch for development
+1. ##### Create a local branch for development
 
 ![image-issueform](project-workflow-images/localbranch.png)
 
-2. Move Issue to "In Progress"
+2. ##### Move Issue to "In Progress"
 
 ![image-issueform](project-workflow-images/inprogress.png)
 
-3. After the needful changes, create a commit and push to a remote other than main
+3. ##### After the needful changes, create a commit and push to a remote other than main
 
 ![image-issueform](project-workflow-images/commitcreated.png)
+![image-issueform](project-workflow-images/originpush.png)
+
+#### Create a Pull Request
+
+1. ##### Create a pull request under the Pull Requests tab. Please **add DBProj to the Projects**.
+
+![image-issueform](project-workflow-images/createpullrequest.png)
+![image-issueform](project-workflow-images/createpullrequest2.png)
+
+2. ##### Pull Request will be in review. Add to the conversation, review, make comments, approve, or request changes.
+
+![image-issueform](project-workflow-images/pullrequest.png)
+![image-issueform](project-workflow-images/inreview.png)
+
+3. ##### After approval, merge the pull request.
+
+![image-issueform](project-workflow-images/mergepr.png)
+
+4. ##### Pull request will then be moved to the Done column
+
+![image-issueform](project-workflow-images/prindone.png)
+
+5. ##### Delete the Remote Branch
+
+![image-issueform](project-workflow-images/deleteorigin.png)
+
+#### Closing an Issue
+
+1. ##### After all work is done. Close the issue from the Issues tab
+
+![image-issueform](project-workflow-images/closeissue.png)
+
+2. ##### Confirm that the issue is in the Done column
+
+![image-issueform](project-workflow-images/issueindone.png)
 
 ## References
 
@@ -60,5 +101,3 @@ https://github.com/cbaddeley/dbproj
 **Express** - https://expressjs.com/en/guide/routing.html
 
 **Angular** - https://angular.io/start'
-
-test change
