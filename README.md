@@ -43,56 +43,56 @@ http://gitextensions.github.io/
 
 3. ##### Click on "Submit new issue" and confirm that issue is added to the project board
 
-![image-issueform](project-workflow-images/addedissue.png)
+![image-addedissue](project-workflow-images/addedissue.png)
 
 #### Start Working On Issue
 
 1. ##### Create a local branch for development
 
-![image-issueform](project-workflow-images/localbranch.png)
+![image-localbranch](project-workflow-images/localbranch.png)
 
 2. ##### Move Issue to "In Progress"
 
-![image-issueform](project-workflow-images/inprogress.png)
+![image-inprogress](project-workflow-images/inprogress.png)
 
 3. ##### After the needful changes, create a commit and push to a remote other than main
 
-![image-issueform](project-workflow-images/commitcreated.png)
-![image-issueform](project-workflow-images/originpush.png)
+![image-commitcreated](project-workflow-images/commitcreated.png)
+![image-originpush](project-workflow-images/originpush.png)
 
 #### Create a Pull Request
 
 1. ##### Create a pull request under the Pull Requests tab. Please **add DBProj to the Projects**.
 
-![image-issueform](project-workflow-images/createpullrequest.png)
-![image-issueform](project-workflow-images/createpullrequest2.png)
+![image-createpullrequest](project-workflow-images/createpullrequest.png)
+![image-createpullrequest2](project-workflow-images/createpullrequest2.png)
 
 2. ##### Pull Request will be in review. Add to the conversation, review, make comments, approve, or request changes.
 
-![image-issueform](project-workflow-images/pullrequest.png)
-![image-issueform](project-workflow-images/inreview.png)
+![image-pullrequest](project-workflow-images/pullrequest.png)
+![image-inreview](project-workflow-images/inreview.png)
 
 3. ##### After approval, merge the pull request.
 
-![image-issueform](project-workflow-images/mergepr.png)
+![image-mergepr](project-workflow-images/mergepr.png)
 
 4. ##### Pull request will then be moved to the Done column
 
-![image-issueform](project-workflow-images/prindone.png)
+![image-prindone](project-workflow-images/prindone.png)
 
 5. ##### Delete the Remote Branch
 
-![image-issueform](project-workflow-images/deleteorigin.png)
+![image-deleteorigin](project-workflow-images/deleteorigin.png)
 
 #### Closing an Issue
 
 1. ##### After all work is done. Close the issue from the Issues tab
 
-![image-issueform](project-workflow-images/closeissue.png)
+![image-closeissue](project-workflow-images/closeissue.png)
 
 2. ##### Confirm that the issue is in the Done column
 
-![image-issueform](project-workflow-images/issueindone.png)
+![image-issueindone](project-workflow-images/issueindone.png)
 
 ## References
 
