@@ -1,31 +1,32 @@
 const oracledb = require("oracledb");
 const dbConfig = require("./dbconfig.js");
 
-class Database {
-  connection;
+let connection;
 
-  static async init() {
-    try {
-      oracledb.initOracleClient({ libDir: "C:\\oracle\\instantclient_19_10" });
-      this.connection = await oracledb.getConnection(dbConfig);
-      console.log('Database Connection Established')
-    } catch (err) {
-      console.error(err);
-      process.exit(1);
-    }
-  }
-
-  static async ping() {
-      try {
-        console.log('Pinging Database...');
-        await this.connection.ping().then((f) => console.log('Sucessfully Pinged Database'));
-      }
-      catch (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      
+async function init() {
+  try {
+    oracledb.initOracleClient({ libDir: "C:\\oracle\\instantclient_19_10" });
+    var connection = await oracledb.getConnection(dbConfig);
+    connection.currentSchema = '"SCOTT.ENGELHARDT"';
+    console.log('Database Connection Established')
+    return connection;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
   }
 }
 
-module.exports = Database;
+async function ping(connection) {
+  try {
+    console.log('Pinging Database...');
+    return await connection.ping();
+  }
+  catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+module.exports.connection = connection;
+module.exports.init = init;
+module.exports.ping = ping;
