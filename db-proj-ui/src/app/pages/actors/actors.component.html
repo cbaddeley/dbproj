@@ -1,0 +1,52 @@
+<div class="page-container">
+  <div class="page-header">
+    <header>
+      <h1>Actors</h1>
+    </header>
+  </div>
+  <div class="divider"></div>
+  <div class="page-content">
+    <div class="query-links">
+      <a
+        routerLinkActive="queryIsActive"
+        [routerLink]="['/actors']"
+        [queryParams]="{ query: 'success' }"
+        >Actor Success</a
+      >
+    </div>
+    <div class="page-form" [ngSwitch]="activeQuery | async">
+      <app-actor-success-form *ngSwitchCase="'success'" (onSubmitEvent)="handleSuccessFormSubmit($event)"></app-actor-success-form>
+      <div *ngSwitchDefault>
+        <div class="info-wrapper font-regular font-size-medium">
+          <div class="info-paragraph">Actors page to check out stuff</div>
+          <div class="info-paragraph">select one of the queries on the left.</div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="results">
+    <mat-progress-bar *ngIf="fetching | async" mode="indeterminate"></mat-progress-bar>
+    <div *ngIf="searched">
+      <ng-container *ngIf="!data">
+        <div class="results-header">
+          <header style="text-align: center;">
+            <h1>No Results Found</h1>
+          </header>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="data">
+        <div class="results-header">
+          <header style="text-align: center;">
+            <h1>Results</h1>
+          </header>
+        </div>
+        <div class="divider"></div>
+        <div [ngSwitch]="activeQuery | async">
+          <app-actor-success-results *ngSwitchCase="'success'"></app-actor-success-results>
+        </div>
+      </ng-container>
+     
+    </div>
+    
+  </div>
+</div>

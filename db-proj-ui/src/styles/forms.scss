@@ -1,0 +1,41 @@
+.form-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+}
+
+.form-container {
+    border: 1px solid $db-border;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.form-header {
+    > h1 {
+        margin: 0px;
+        @include font-size-large;
+        @include font-regular;
+        line-height: normal;
+    }
+    > h2 {
+        margin: 0px;
+        @include font-size-small;
+        @include font-medium;
+        line-height: normal;
+    }
+}
+
+.form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+
+    >*:not(:last-child) {
+        margin-right: 30px;
+    }
+}

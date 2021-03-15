@@ -1,4 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import 'styles/custom-fonts.scss';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// Colors
+@import "styles/colors.scss";
+
+$db-primary: mat-palette($color-brand-blue-pallete);
+$db-secondary: mat-palette($color-brand-blue-pallete);
+$db-theme: mat-light-theme($db-primary, $db-secondary);
+@include angular-material-theme($db-theme);
+
+// Import styles below here otherwise material will overwrite them
+
+@import "styles/fonts.scss";
+@import "styles/buttons.scss";
+@import "styles/material-overrides.scss";
+@import "styles/layout.scss";
+@import "styles/home.scss";
+@import "styles/forms.scss";
+
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: $db-font-default;
+    background-color: $db-background-white;
+    margin: auto;
+}
+
+html, body {
+    height: 100%;
+}
+
+.border {
+    border: solid 1px $db-border;
+}
+
+.divider {
+    border-bottom: solid 1px $db-border;
+}
+
+.overlay {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}

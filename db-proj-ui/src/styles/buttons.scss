@@ -1,0 +1,58 @@
+button {
+  border: 2px solid;
+  box-shadow: none;
+  border-radius: 0.25em;
+  font-size: 14px;
+  padding: 0 1rem;
+  cursor: pointer;
+  height: 33px;
+  background: $db-primary-color;
+  border-color: $db-primary-color;
+  color: $db-font-inverse;
+}
+
+button:focus {
+  outline: 0;
+}
+
+/* -- Primary Insights Buttons --*/
+
+.btn--primary-insights {
+  background: $db-primary-color;
+  border-color: $db-primary-color;
+  color: $db-background-white;
+}
+
+.btn--primary-insights:hover {
+  border-color: $db-primary-color;
+  box-shadow: none;
+  color: $db-primary-color;
+  background: rgba(2, 67, 144, 0.25);
+}
+
+.btn--secondary-insights {
+  border-color: $db-primary-color;
+  box-shadow: none;
+  color: $db-primary-color;
+  background: $db-background-white;
+}
+
+.btn--secondary-insights:hover {
+  border-color: $db-primary-color;
+  box-shadow: none;
+  color: $db-background-white;
+  background: $db-primary-color;
+}
+
+.btn--disabled {
+  background: $color-white;
+  border-color: rgba(51, 51, 51, 0.5);
+  color: rgba(51, 51, 51, 0.5);
+  cursor: default;
+}
+
+.btn--empty {
+  background: $color-white;
+  border: none;
+  color: $db-primary-color;
+}
