@@ -5,5 +5,73 @@
     </header>
   </div>
   <div class="divider"></div>
+  <div class="page-content">
+    <div class="query-links">
+      <a
+        routerLinkActive="queryIsActive"
+        [routerLink]="['/films']"
+        [queryParams]="{ query: 'seasons' }"
+        >Successful Seasons</a
+      >
+      <a
+        routerLinkActive="queryIsActive"
+        [routerLink]="['/films']"
+        [queryParams]="{ query: 'budgets' }"
+        >Budgets</a
+      >
+      <a
+        routerLinkActive="queryIsActive"
+        [routerLink]="['/films']"
+        [queryParams]="{ query: 'ratings' }"
+        >Ratings</a
+      >
+      <a
+        routerLinkActive="queryIsActive"
+        [routerLink]="['/films']"
+        [queryParams]="{ query: 'budgetratings' }"
+        >Budgets/Ratings</a
+      >
+    </div>
+    <div class="page-form" [ngSwitch]="activeQuery | async">
+      <app-film-seasons-form *ngSwitchCase="'seasons'" (onSubmitEvent)="handleSuccessFormSubmit($event)"></app-film-seasons-form>
+      <app-film-budgets-form *ngSwitchCase="'budgets'" (onSubmitEvent)="handleSuccessFormSubmit($event)"></app-film-budgets-form>
+      <app-film-ratings-form *ngSwitchCase="'ratings'" (onSubmitEvent)="handleSuccessFormSubmit($event)"></app-film-ratings-form>
+      <app-film-buget-ratings-form *ngSwitchCase="'budgetratings'" (onSubmitEvent)="handleSuccessFormSubmit($event)"></app-film-buget-ratings-form>
+      <div *ngSwitchDefault>
+        <div class="info-wrapper font-regular font-size-medium">
+          <div class="info-paragraph">Films page to check out stuff</div>
+          <div class="info-paragraph">select one of the queries on the left.</div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="results">
+    <!-- <mat-progress-bar *ngIf="fetching | async" mode="indeterminate"></mat-progress-bar> -->
+    <!-- <div *ngIf="searched">
+      <ng-container *ngIf="!data">
+        <div class="results-header">
+          <header style="text-align: center;">
+            <h1>No Results Found</h1>
+          </header>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="data"> -->
+        <div class="results-header">
+          <header style="text-align: center;">
+            <h1>Results</h1>
+          </header>
+        </div>
+        <div class="divider"></div>
+        <div [ngSwitch]="activeQuery | async">
+          <app-film-seasons-results *ngSwitchCase="'seasons'"></app-film-seasons-results>
+      <app-film-budgets-results *ngSwitchCase="'budgets'"></app-film-budgets-results>
+      <app-film-ratings-results *ngSwitchCase="'ratings'"></app-film-ratings-results>
+      <app-film-buget-ratings-results *ngSwitchCase="'budgetratings'"></app-film-buget-ratings-results>
+        </div>
+      <!-- </ng-container> -->
+     
+    <!-- </div> -->
+    
+  </div>
 </div>
 
