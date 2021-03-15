@@ -1,0 +1,152 @@
+// Containers
+.view-container {
+    background-color: $db-background-grey;
+    height: 100%;
+    overflow: auto;
+}
+
+.app-container {
+    max-width: 1300px;
+    margin: auto;
+    height: 100%;
+    background-color: $db-background-white;
+}
+
+.page-container {
+    padding: 0px 25px 25px 25px;
+    background-color: $db-background-white;
+}
+
+// NAV BAR
+.nav-bar {
+    height: 55px;
+    display: flex;
+    @include font-regular;
+    @include font-size-medium;
+    background-color: $db-primary-color;
+    
+    align-items: center;
+    padding-left: 15px;
+
+    > img {
+        height: 26px;
+    }
+
+    > a {
+        text-decoration: none;
+        color: $db-font-inverse;
+        margin-left: 25px;
+        padding-bottom: 4px;
+
+        &.routeIsActive {
+            border-bottom: 1px $db-font-inverse solid;
+        }
+    }
+
+    > a:hover {
+        border-bottom: 1px $db-font-inverse solid;
+        padding-bottom: 4px;
+    }
+
+    > .nav-utils {
+        height: 100%;
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        border-left: 1px solid $db-font-inverse;
+
+        > *:first-child {
+            padding: 0px 15px;
+        }
+
+        > * {
+            padding-right: 15px;
+        }
+
+        > .mat-icon {
+            height: 20px;
+            cursor: pointer;
+        }
+
+        > a {
+            display: flex;
+        }
+    }
+}
+
+// Page 
+.page-header {
+    padding: 30px 0 20px 0;
+    > header {
+        > h1 {
+            margin: 0px;
+            @include font-size-large;
+            @include font-light;
+        }
+    }
+}
+
+.page-content {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: row;
+}
+
+.page-form {
+    margin-left: 60px;
+    flex-grow: 1;
+}
+
+// Info
+.info-wrapper {
+    .info-paragraph {
+        padding-bottom: 20px;
+    }
+}
+
+// Query List
+.query-links {
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: $db-primary-color;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+
+    > a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border: 1px solid;
+        box-shadow: none;
+        border-color: $db-primary-color;
+        color: $db-primary-color;
+        background: $db-background-white;
+        font-size: 14px;
+        padding: 0 1rem;
+        cursor: pointer;
+        height: 33px;
+
+        &.queryIsActive {
+            background: $db-primary-color;
+            border-color: $db-primary-color;
+            color: $db-font-inverse;
+        }
+    }
+}
+
+// Results
+.results {
+    padding: 30px 0 20px 0;
+}
+
+.results-header {
+    > header {
+        > h1 {
+            margin: 0px;
+            @include font-size-large;
+            @include font-light;
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@mixin font-light {
+    font-weight: 300;
+}
+
+@mixin font-regular {
+    font-weight: 400;
+}
+
+@mixin font-medium {
+    font-weight: 500;
+}
+
+@mixin font-bold {
+    font-weight: 700;
+}
+
+@mixin font-size-small {
+    font-size: 13px;
+}
+
+@mixin font-size-medium {
+    font-size: 14px;
+}
+
+@mixin font-size-large {
+    font-size: 21px;
+}
+
+@mixin font-size-xlarge {
+    font-size: 35px;
+}
+
+.font-light {
+    @include font-light;
+}
+
+.font-regular {
+    @include font-regular;
+}
+
+.font-medium {
+    @include font-medium;
+}
+
+.font-bold {
+    @include font-bold;
+}
+
+.font-size-small {
+    @include font-size-small;
+}
+
+.font-size-medium {
+    @include font-size-medium;
+}
+
+.font-size-large {
+    @include font-size-large;
+}
+
+.font-size-xlarge {
+    @include font-size-xlarge;
+}

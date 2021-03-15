@@ -1,0 +1,146 @@
+// Definitions
+
+// Brand Pallete
+$color-brand-blue-pallete: (
+    50 : #e1e8f2,
+    100 : #b3c7de,
+    200 : #81a1c8,
+    300 : #4e7bb1,
+    400 : #285fa1,
+    500 : #024390,
+    600 : #023d88,
+    700 : #01347d,
+    800 : #012c73,
+    900 : #011e61,
+    A100 : #91a8ff,
+    A200 : #5e80ff,
+    A400 : #2b58ff,
+    A700 : #1244ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+// Brand Colors
+$color-brand-blue: #024390;
+
+// Secondary Colors
+$color-secondary-teal: #00A5A5;
+$color-secondary-yellow: #C4A504;
+$color-secondary-pink: #BD009B;
+$color-secondary-orange: #EE6C4D;
+
+// Background Colors
+$color-background-grey: #F8F8F8;
+$color-background-dark-grey: #D7D7D7;
+$color-background-yellow: #F9F6EC;
+$color-background-red: #F7E7E6;
+$color-background-blue: #E6F2F9;
+$color-background-white: #FFFFFF;
+
+// Semantic
+$color-orange: #E65722;
+$color-red: #B50000;
+$color-green: #28A228;
+$color-blue: #007CBE;
+
+// Other
+$color-grey: #E1E1E1;
+$color-grey-2: #F8F8F8;
+$color-black: #333333;
+$color-white: #FFFFFF;
+$color-light-green: #F3FFDE;
+$color-light-green-2: #CDFF48;
+$color-light-red: #F7E7E6;
+$color-light-blue: #E6F2F9;
+
+$db-primary-color: $color-brand-blue;
+
+// Secondary Colors
+$db-secondary-teal: $color-secondary-teal;
+$db-secondary-yellow: $color-secondary-yellow;
+$db-secondary-pink: $color-secondary-pink;
+$db-secondary-orange: $color-secondary-orange;
+
+// Background Colors
+$db-background-grey: $color-background-grey;
+$db-background-dark-grey: $color-background-dark-grey;
+$db-background-warning: $color-background-yellow;
+$db-background-critical: $color-background-red;
+$db-background-info: $color-background-blue;
+$db-background-white: $color-background-white;
+
+// Semantic Colors
+$db-warning: $color-orange;
+$db-critical: $color-red;
+$db-success: $color-green;
+$db-information: $color-blue;
+
+// Other
+$db-border: $color-grey;
+$db-font-inverse: $color-white;
+$db-font-default: $color-black;
+$db-fill-red: $color-light-red;
+$db-fill-green: $color-light-green;
+$db-hover-grey: $color-grey-2;
+$db-hover-green: $color-light-green-2;
+$db-highlight: $color-light-blue;
+
+.gray-background {
+    background-color: $db-background-grey;
+}
+
+.dark-gray-background {
+    background-color: $db-background-dark-grey;
+}
+
+.info-background {
+    background-color: $db-information;
+}
+
+.critical-background {
+    background-color: $db-background-critical;
+}
+
+.white-background {
+    background-color: $db-background-white;
+}
+
+.icon-color-critical {
+    > svg {
+        fill: $db-critical;
+    }
+}
+
+.icon-color-success {
+    > svg {
+        fill: $db-success;
+    }
+}
+
+.icon-color-inverse {
+    > svg {
+        fill: $db-font-inverse;
+    }
+}
+
+.font-inverse {
+    color: $db-font-inverse;
+}
+
+.font-info {
+    color: $db-information;
+}
