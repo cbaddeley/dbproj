@@ -12,10 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 var ping = require("./routes/ping");
-var genres = require("./routes/getGenres");
+var genres = require("./routes/genre");
+var actors = require("./routes/actor");
 
 app.use("/api/v1/ping", ping);
 app.use("/api/v1/genres", genres);
+app.use("/api/v1/actors", actors);
 
 (async function () {
   database.connection = await database.init();
