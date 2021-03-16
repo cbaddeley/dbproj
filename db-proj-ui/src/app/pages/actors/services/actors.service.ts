@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
+import { IActorDTO } from "./actor-dto";
+import { IActor } from "./actor-model";
 import { ActorDataService } from "./actors-data.service";
 
 @Injectable()
@@ -9,6 +11,12 @@ export class ActorService {
     public fetching: Observable<boolean> = this._fetching.asObservable();
     
     constructor(private dataService: ActorDataService) { }
+
+    public searchActors(name: string): Observable<IActor[]> {
+        return this.dataService.getActors(name).pipe(
+            map((actors) => this.mapActors(actors))
+        )
+    }
     
     public searchActorSuccess() {
         console.log('searching')
@@ -23,5 +31,9 @@ export class ActorService {
     private mapActorSuccessData(someData: any) {
         console.log(someData)
         return someData;
+    }
+
+    private mapActors(actors: IActorDTO[]): IActor[] {
+        return actors;
     }
 }

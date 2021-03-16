@@ -1,7 +1,12 @@
 const dataService = require("./actorDataService");
 
 function mapNames(dbNames) {
-    return dbNames.rows; 
+    return dbNames.rows.map(actor => {
+      return {
+        id: actor.ACTOR_ID,
+        name: actor.ACTOR_NAME
+      }
+    }); 
 }
 
 async function findActor(name) {

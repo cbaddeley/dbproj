@@ -2,7 +2,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-
+const cors = require('cors');
 var database = require("./data-access/database");
 
 var app = express();
@@ -10,6 +10,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 var ping = require("./routes/ping");
 var genres = require("./routes/genre");
