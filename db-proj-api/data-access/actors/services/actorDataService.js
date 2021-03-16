@@ -2,17 +2,14 @@ const actorQueries = require("../queries/actorQueries");
 const oracledb = require("oracledb");
 var database = require("../../database");
 
-async function getAllGenres() {
-    sql = actorQueries.getAllGenres;
+async function getActors(name) {
+    sql = actorQueries.getActors;
 
-    binds = {};
+    binds = {name: `%${name}%`}
 
     // For a complete list of options see the documentation.
     options = {
       outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
-      // extendedMetaData: true,               // get extra metadata
-      // prefetchRows:     100,                // internal buffer allocation size for tuning
-      // fetchArraySize:   100                 // internal buffer allocation size for tuning
     };
 
     try {
@@ -22,4 +19,4 @@ async function getAllGenres() {
     }
 }
 
-module.exports.getAllGenres = getAllGenres;
+module.exports.getActors = getActors;
