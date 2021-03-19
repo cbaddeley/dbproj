@@ -22,6 +22,7 @@ $db-theme: mat-light-theme($db-primary, $db-secondary);
 @import "styles/layout.scss";
 @import "styles/home.scss";
 @import "styles/forms.scss";
+@import "styles/charts.scss";
 
 /* You can add global styles to this file, and also import other style files */
 body {

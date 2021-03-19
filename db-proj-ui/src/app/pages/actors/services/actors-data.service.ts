@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { delay } from "rxjs/operators";
+import { Observable } from "rxjs";
 import { API_URL } from "src/app/api-token";
-import { IActorDTO } from "./actor-dto";
+import { IActorDTO, IActorSuccessDTO } from "./actor-dto";
 
 @Injectable()
 export class ActorDataService {
@@ -12,8 +11,13 @@ export class ActorDataService {
         @Inject(API_URL) private baseUrl: string
         ) { }
 
-    public getActorSuccessData() {
-        return of('success').pipe(delay(2000));
+    public getActorSuccessData(name: string, startDate: string, endDate: string): Observable<IActorSuccessDTO[]> {
+        let params = new HttpParams();
+        params = params.append('name', name);
+        params = params.append('startDate', startDate);
+        params = params.append('endDate', endDate);
+
+        return this.http.get<IActorSuccessDTO[]>(`${this.baseUrl}/actorSuccess`, {params: params});
     }
 
     public getActors(name: string): Observable<IActorDTO[]> {

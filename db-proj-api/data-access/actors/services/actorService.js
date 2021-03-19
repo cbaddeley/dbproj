@@ -9,6 +9,17 @@ function mapNames(dbNames) {
     }); 
 }
 
+function mapActorSucces(dbActorSuccess) {
+  return dbActorSuccess.rows.map(d => {
+    return {
+      yr: d.YR,
+      mo: d.MO,
+      avgRating: d.AVG_RATING,
+      avgROI: d.AVG_ROI,
+    }
+  });
+}
+
 async function findActor(name) {
   try {
     var actors = await dataService.getActors(name);
@@ -18,4 +29,14 @@ async function findActor(name) {
   }
 }
 
+async function getActorSuccess(name, startDate, endDate) {
+  try {
+    var actorSuccess = await dataService.getActorSuccess(name, startDate, endDate);
+    return mapActorSucces(actorSuccess);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports.findActor = findActor;
+module.exports.getActorSuccess = getActorSuccess;

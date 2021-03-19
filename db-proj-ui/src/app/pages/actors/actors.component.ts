@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, shareReplay, takeUntil } from 'rxjs/operators';
+import { ISuccessFormValue } from './query-forms/success-form.interface';
+import { IActorSuccess } from './services/actor-model';
 import { ActorService } from './services/actors.service';
 
 @Component({
@@ -18,7 +20,7 @@ export class ActorsComponent implements OnInit, OnDestroy {
     shareReplay()
   );
 
-  public data: any;
+  public actorSuccessData: IActorSuccess[] = [];
   public searched = false;
 
   constructor(
@@ -34,11 +36,10 @@ export class ActorsComponent implements OnInit, OnDestroy {
     this.destroyed.next();
   }
 
-  public handleSuccessFormSubmit(v: string) {
-    this.actorService.searchActorSuccess().subscribe(data => {
-      console.log(data);
+  public handleSuccessFormSubmit(formData: ISuccessFormValue) {
+    this.actorService.searchActorSuccess(formData.name.name, formData.range.start, formData.range.end).subscribe(data => {
       this.searched = true;
-      this.data = data;
+      this.actorSuccessData = data;
     });
   }
 }
