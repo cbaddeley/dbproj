@@ -27,14 +27,14 @@
   <div class="results">
     <mat-progress-bar *ngIf="fetching | async" mode="indeterminate"></mat-progress-bar>
     <div *ngIf="searched">
-      <ng-container *ngIf="!data">
+      <ng-container *ngIf="!actorSuccessData">
         <div class="results-header">
           <header style="text-align: center;">
             <h1>No Results Found</h1>
           </header>
         </div>
       </ng-container>
-      <ng-container *ngIf="data">
+      <ng-container *ngIf="actorSuccessData && !(fetching | async)">
         <div class="results-header">
           <header style="text-align: center;">
             <h1>Results</h1>
@@ -42,7 +42,7 @@
         </div>
         <div class="divider"></div>
         <div [ngSwitch]="activeQuery | async">
-          <app-actor-success-results *ngSwitchCase="'success'"></app-actor-success-results>
+          <app-actor-success-results [data]="actorSuccessData" *ngSwitchCase="'success'"></app-actor-success-results>
         </div>
       </ng-container>
      

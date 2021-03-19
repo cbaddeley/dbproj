@@ -15,10 +15,12 @@ app.use(cors());
 var ping = require("./routes/ping");
 var genres = require("./routes/genre");
 var actors = require("./routes/actor");
+var actorSuccess = require("./routes/actorSuccess");
 
 app.use("/api/v1/ping", ping);
 app.use("/api/v1/genres", genres);
 app.use("/api/v1/actors", actors);
+app.use("/api/v1/actorSuccess", actorSuccess);
 
 (async function () {
   database.connection = await database.init();
