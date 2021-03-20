@@ -1,38 +1,36 @@
 const getActors = `SELECT * FROM ACTOR WHERE UPPER(ACTOR_NAME) LIKE UPPER(:name) FETCH FIRST 5 ROWS ONLY`;
 
 const getActorSuccess = `
-SELECT
-	yr,
-	mo,
-	AVG(rating) AS avg_rating,
-	AVG(roi) AS avg_roi
-FROM
-	(
-	SELECT
-		EXTRACT(YEAR FROM time_stamp) AS yr,
-		EXTRACT(MONTH FROM time_stamp) AS mo,
-		rating,
-		(revenue / budget) * 100 AS roi
-	FROM
-		ACTOR a
-	INNER JOIN CAST c ON
-		c.ACTOR_ID = a.ACTOR_ID
-	INNER JOIN MOVIE m ON
-		m.IMDB_ID = c.IMDB_ID
-    FULL OUTER JOIN RATING r ON
-		r.MOVIE_ID = m.MOVIE_ID
-	WHERE
-		time_stamp > TO_DATE(:startDate, 'YYYY-MM-DD')
-		AND time_stamp < TO_DATE(:endDate, 'YYYY-MM-DD')
-		AND UPPER(actor_name) LIKE UPPER(:name)
-		AND budget <> 0
-		AND revenue <> 0 )
-GROUP BY
-	yr,
-	mo
-ORDER BY
-	yr,
-	mo
+SELECT title, release_date, avg_rating, roi
+FROM (
+    SELECT imdb_id, title, release_date, avg_rating
+    FROM Movie NATURAL JOIN (
+        SELECT imdb_id, AVG(avg_rating) AS avg_rating
+        FROM ACTOR NATURAL JOIN Cast NATURAL JOIN (
+            SELECT imdb_id, AVG(Rating) AS avg_rating
+            FROM Movie NATURAL JOIN RATING
+            Group by imdb_id
+        )
+        WHERE UPPER(actor_name) LIKE UPPER(:name) -- name passed from user
+        GROUP BY imdb_id
+    )
+)  NATURAL FULL OUTER JOIN (
+    SELECT imdb_id, title, release_date, roi
+    FROM (
+        SELECT imdb_id, title, release_date, roi
+        FROM ACTOR NATURAL JOIN Cast NATURAL JOIN (
+            SELECT imdb_id, title, release_date, (revenue / budget) * 100 AS roi
+            FROM (
+                SELECT imdb_id, title, release_date, budget, revenue
+                FROM  Movie
+                WHERE budget <> 0 AND revenue <> 0
+            )
+        )
+        WHERE UPPER(actor_name) LIKE UPPER(:name) -- name passed from user
+    ) 
+)
+WHERE release_date BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD') -- dates passed from user 
+ORDER BY release_date ASC
 `;
 
 module.exports.getActors = getActors;
