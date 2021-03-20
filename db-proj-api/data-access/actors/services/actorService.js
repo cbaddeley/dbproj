@@ -12,10 +12,10 @@ function mapNames(dbNames) {
 function mapActorSucces(dbActorSuccess) {
   return dbActorSuccess.rows.map(d => {
     return {
-      yr: d.YR,
-      mo: d.MO,
+      releaseDate: d.RELEASE_DATE,
+      title: d.TITLE,
       avgRating: d.AVG_RATING,
-      avgROI: d.AVG_ROI,
+      avgROI: d.ROI,
     }
   });
 }
