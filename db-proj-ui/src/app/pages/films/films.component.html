@@ -65,7 +65,7 @@
       mode="indeterminate"
     ></mat-progress-bar>
     <div *ngIf="searched">
-      <ng-container *ngIf="results.length == 0">
+      <ng-container *ngIf="results.length == 0 && !(fetching | async)">
         <div class="results-header">
           <header style="text-align: center">
             <h1>No Results Found</h1>
