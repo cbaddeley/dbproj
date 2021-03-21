@@ -39,3 +39,29 @@
         margin-right: 30px;
     }
 }
+
+.checkbox-group {
+    display: flex; 
+    flex-direction: column;
+}
+
+.radio-group {
+    display: flex; 
+    flex-direction: column;
+}
+
+.selection-list-wrapper {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.selection-list {
+    border: 1px solid $db-border;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

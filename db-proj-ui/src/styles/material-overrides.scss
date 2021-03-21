@@ -113,3 +113,31 @@ $table-padding: 2px 2px 2px 10px;
 .mat-progress-bar-fill::after {
     background-color: $db-information;
 }
+
+.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple {
+    opacity: 0;
+}
+
+.mat-checkbox .mat-ripple-element {
+    background-color: initial;
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background: initial;
+}
+
+.mat-radio-container:hover .mat-radio-persistent-ripple {
+    opacity: 0;
+}
+
+.mat-radio-persistent-ripple {
+    display: none;
+}
+
+.mat-list-option {
+    height: 20px !important;
+}
+
+.mat-list-base {
+    padding-bottom: 8px;
+}

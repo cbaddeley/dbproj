@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var genreService = require("../data-access/genres/services/genreService");
+var countryService = require("../data-access/countries/services/countryService");
 
 router.get('/', async function (req, res, next) {
-    result = await genreService.getTop20Genres();
+    result = await countryService.getTop20Countries();
     res.json(result);
 });
 

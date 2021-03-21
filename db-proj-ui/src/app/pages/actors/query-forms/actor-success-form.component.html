@@ -50,16 +50,14 @@
 
           <mat-error *ngIf="startDateError">Invalid start date</mat-error>
           <mat-error *ngIf="endDateError">Invalid end date</mat-error>
-          <!-- <mat-error *ngIf="range?.invalid">Required</mat-error> -->
+          
         </mat-form-field>
-        <mat-form-field>
-          <mat-select formControlName="metric" required>
-            <mat-option value="dollars">Dollars</mat-option>
-            <mat-option value="ratings">Ratings</mat-option>
-            <mat-option value="both">Both</mat-option>
-          </mat-select>
+        <div class="checkbox-group" style="margin-bottom: 5px;">
           <mat-label>Metric</mat-label>
-        </mat-form-field>
+          <mat-checkbox disableRipple formControlName="dollars" class="example-margin">Return on Investment</mat-checkbox>
+          <mat-checkbox disableRipple formControlName="ratings" class="example-margin">Movie Ratings</mat-checkbox>
+          <mat-error *ngIf="metricError">Metric Required</mat-error>
+        </div>
       </div>
       <div class="form-row" style="flex-direction: row-reverse">
         <button [ngClass]="{'btn--disabled': actorSuccessForm.invalid}" [disabled]="actorSuccessForm.invalid" (click)="onSubmit()">Submit</button>
