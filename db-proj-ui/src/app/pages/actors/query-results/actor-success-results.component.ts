@@ -10,6 +10,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges {
   @ViewChild('charRef') charRef!: ElementRef;
   @Input() public data: IActorSuccess[] = [];
+  @Input() public metricToDisplay!: 'ratings' | 'roi' | 'both';
 
   private chart!: am4charts.Chart;
 
@@ -29,10 +30,11 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges {
   }
 
   private createChart() {
+    console.log(this.data[0])
       const chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
       chart.data = this.data.map((f) => { 
         return {
-          date: f.date, rating: f.rating
+          date: f.releaseDate, rating: f.avgRating
         }
       });
 

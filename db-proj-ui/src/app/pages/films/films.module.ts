@@ -13,6 +13,9 @@ import { FilmBudgetRatingsResultsComponent } from './query-results/film-budget-r
 import { FilmBudgetsResultsComponent } from './query-results/film-budgets-results.component';
 import { FilmRatingsResultsComponent } from './query-results/film-ratings-results.component';
 import { FilmSeasonsResultsComponent } from './query-results/film-seasons-results.component';
+import { FilmService } from './services/film.service';
+import { FilmDataService } from './services/film-data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Route[] = [
   {
@@ -40,6 +43,8 @@ export const FilmsUIRoutesModule = RouterModule.forChild(routes);
     FilmsUIRoutesModule,
     MaterialModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
+  providers: [FilmService, FilmDataService]
 })
 export class FilmsModule {}

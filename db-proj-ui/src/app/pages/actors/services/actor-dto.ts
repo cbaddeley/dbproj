@@ -4,8 +4,8 @@ export interface IActorDTO {
 }
 
 export interface IActorSuccessDTO {
-    yr: number;
-    mo: number;
+    releaseDate: Date;
+    title: string;
     avgRating: number;
     avgROI: number;
 }

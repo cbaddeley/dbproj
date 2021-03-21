@@ -1,9 +1,9 @@
-const genreQueries = require("../queries/genreQueries");
+const countryQueries = require("../queries/countryQueries");
 const oracledb = require("oracledb");
 var database = require("../../database");
 
-async function getGenres() {
-    sql = genreQueries.top20Genres;
+async function getTop20Countries() {
+    sql = countryQueries.top20Countries;
 
     binds = {};
 
@@ -22,4 +22,4 @@ async function getGenres() {
     }
 }
 
-module.exports.getGenres = getGenres;
+module.exports.getTop20Countries = getTop20Countries;

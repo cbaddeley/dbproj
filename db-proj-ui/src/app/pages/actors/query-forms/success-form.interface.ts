@@ -1,5 +1,6 @@
 export interface ISuccessFormValue {
-    metric: 'dollars' | 'ratings' | 'both';
+    dollars: boolean;
+    ratings: boolean;
     range: {
         end: Date;
         start: Date;

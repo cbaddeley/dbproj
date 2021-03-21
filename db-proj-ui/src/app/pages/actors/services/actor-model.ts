@@ -4,7 +4,8 @@ export interface IActor {
 }
 
 export interface IActorSuccess {
-    date: string;
-    roi: number;
-    rating: number;
+    releaseDate: string;
+    title: string;
+    avgRating: number;
+    avgROI: number;
 }
