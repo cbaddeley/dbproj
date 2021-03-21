@@ -59,7 +59,7 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, O
     } else if (this.metricToDisplay == 'ratings') {
       this.createAxisAndSeries('rating', 'Rating', false, 'Rating');
     } else {
-      this.createAxisAndSeries('roi', 'ROI', true, 'ROI (%)');
+      this.createAxisAndSeries('roi', 'ROI', false, 'ROI (%)');
     }
   }
 
