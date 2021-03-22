@@ -24,7 +24,7 @@ async function getCountryYearBudgets(startDate, endDate) {
   binds = {
     startDate: startDate,
     endDate: endDate
-  },
+  }, // ** This comma is a semicolon on other DataService files?? **
 
 
   // For a complete list of options see the documentation.
