@@ -24,7 +24,7 @@ async function getCountryYearBudgets(startDate, endDate, countryName) {
   binds = {
     startDate: startDate,
     endDate: endDate,
-    countryName: countryName
+    countryName: `%${countryName}%`
   };
 
 
