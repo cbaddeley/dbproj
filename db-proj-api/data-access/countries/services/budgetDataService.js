@@ -19,12 +19,13 @@ async function getBudgets() {
     }
 }
 
-async function getCountryYearBudgets(startDate, endDate) {
+async function getCountryYearBudgets(startDate, endDate, countryName) {
   sql = budgetQueries.getCountryYearBudgets;
   binds = {
     startDate: startDate,
-    endDate: endDate
-  }, // ** This comma is a semicolon on other DataService files?? **
+    endDate: endDate,
+    countryName: countryName
+  };
 
 
   // For a complete list of options see the documentation.

@@ -15,7 +15,7 @@ function mapBudgets(dbBudgets) {
         return {
             countryName: d.COUNTRY_NAME,
             releaseDate: d.RELEASE_DATE,
-            budgetSum: d.BUDGETSUM,
+            budget: d.BUDGET,
         }
     });
 }
@@ -29,9 +29,9 @@ async function findActor(name) {
     }
 }
 
-async function getBudgets(startDate, endDate) {
+async function getBudgets(startDate, endDate, countryName) {
     try {
-        var daBudget = await dataService.getCountryYearBudgets(startDate, endDate);
+        var daBudget = await dataService.getCountryYearBudgets(startDate, endDate, countryName);
         return mapBudgets(daBudget);
     } catch (err) {
         console.error(err);

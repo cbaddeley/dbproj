@@ -23,7 +23,7 @@ async function getGenres() {
     }
 }
 
-async function getGenreRatings(startDate, endDate, daGenre) {
+async function getGenreRatings(startDate, endDate, genreIn) {
   sql = genreRatings.themGenreRatings;
 
   binds = {
