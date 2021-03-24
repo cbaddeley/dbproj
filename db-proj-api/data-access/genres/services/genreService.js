@@ -18,4 +18,14 @@ async function getTop20Genres() {
   }
 }
 
+async function getGRresults(genreIn, startDate, endDate) {
+  try {
+    var allGenres = await dataService.getGenreRatings(genreIn, startDate, endDate);
+    return mapGenres(allGenres);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports.getTop20Genres = getTop20Genres;
+module.exports.getGRresults = getGRresults;
