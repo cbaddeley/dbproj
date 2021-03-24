@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { delay } from "rxjs/operators";
@@ -22,8 +22,12 @@ export class FilmDataService {
         return this.http.get<IGenreDTO[]>(`${this.baseUrl}/genres`);
     }
 
-    public getSuccessfulSeasons(): Observable<ISuccessfulSeasonDTO[]> {
-        return of([]).pipe(delay(2000))
+    public getSuccessfulSeasons(quartile: 'top_roi' | 'bottom_roi', startDate: string, endDate: string): Observable<ISuccessfulSeasonDTO[]> {
+        let params = new HttpParams();
+        params = params.append('quartile', quartile);
+        params = params.append('startDate', startDate);
+        params = params.append('endDate', endDate);
+        return this.http.get<ISuccessfulSeasonDTO[]>(`${this.baseUrl}/seasons`, {params: params});
     }
 
     public getFilmRatings(): Observable<IFilmRatingsDTO[]> {

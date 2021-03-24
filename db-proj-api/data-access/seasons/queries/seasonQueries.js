@@ -78,6 +78,7 @@ FROM (
 )
 WHERE quartile = :quartile
 GROUP BY yr, season
+ORDER BY yr, season
 `;
 
 module.exports.getSeasonalQuartiles = getSeasonalQuartiles;

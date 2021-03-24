@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
+import { formatDate } from "src/app/utils/date-util";
 import { ICountry, ICountryDTO } from "./country";
 import { FilmDataService } from "./film-data.service";
 import { IFilmBudgetRatingsDTO, IFilmBudgetsDTO, IFilmRatingsDTO, ISuccessfulSeasonDTO } from "./films.dto";
-import { IFilmBudgetRatings, IFilmBudgets, IFilmRatings, ISuccessfulSeason } from "./films.model";
+import { IFilmBudgetRatings, IFilmBudgets, IFilmRatings, ISuccessfulSeason, Season } from "./films.model";
 import { IGenre, IGenreDTO } from "./genre";
 
 @Injectable()
@@ -26,9 +27,9 @@ export class FilmService {
         )
     }
 
-    public searchSuccessfulSeasons(): Observable<ISuccessfulSeason[]> {
+    public searchSuccessfulSeasons(quartile: 'top_roi' | 'bottom_roi', startDate: Date, endDate: Date): Observable<ISuccessfulSeason[]> {
         this._fetching.next(true);
-        return this.dataService.getSuccessfulSeasons().pipe(
+        return this.dataService.getSuccessfulSeasons(quartile, formatDate(startDate), formatDate(endDate)).pipe(
             tap(() => this._fetching.next(false)),
             map((d) => this.mapSuccessfulSeasons(d))
         );
@@ -67,7 +68,17 @@ export class FilmService {
     }
 
     private mapSuccessfulSeasons(data: ISuccessfulSeasonDTO[]): ISuccessfulSeason[] {
-        return data;
+        return data.map(d => {
+            let season: Season;
+            if (d.season == 1) season = Season.Winter;
+            if (d.season == 2) season = Season.Spring;
+            if (d.season == 3) season = Season.Summer;
+            if (d.season == 4) season = Season.Fall;
+            return {
+                ...d,
+                season: season
+            }
+        });
     }
 
     private mapFilmRatings(data: IFilmRatingsDTO[]): IFilmRatings[] {
