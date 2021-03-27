@@ -1,5 +1,5 @@
 const getSeasonalQuartiles = `
-SELECT * 
+SELECT yr, season, AVG(avg_rating) AS avg_rating, AVG(roi) AS roi
 FROM (
     WITH all_results as  ( 
         SELECT imdb_id, yr, season, AVG(avg_rating) AS avg_rating, rating_rank, AVG(roi) AS roi, roi_rank
@@ -28,7 +28,7 @@ FROM (
                 ) 
                 GROUP BY imdb_id, release_date, roi, roi_rank     
             )
-        WHERE release_date BETWEEN :startDate AND :endDate -- start and end passed from user 
+        WHERE release_date BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD') -- start and end passed from user 
         )   
         GROUP BY imdb_id, yr, season, rating_rank, roi_rank
     )
@@ -77,6 +77,7 @@ FROM (
     )
 )
 WHERE quartile = :quartile
+GROUP BY yr, season
 `;
 
 module.exports.getSeasonalQuartiles = getSeasonalQuartiles;

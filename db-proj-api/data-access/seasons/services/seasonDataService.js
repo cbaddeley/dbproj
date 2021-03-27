@@ -1,11 +1,11 @@
-const actorQueries = require("../queries/seasonQueries");
+const seasonQueries = require("../queries/seasonQueries");
 const oracledb = require("oracledb");
 var database = require("../../database");
 
-async function getActorSuccess(name, startDate, endDate) {
-  sql = actorQueries.getActorSuccess;
+async function getSeasonalQuartiles(quartile, startDate, endDate) {
+  sql = seasonQueries.getSeasonalQuartiles;
   binds = {
-    name: `%${name}%`,
+    quartile: quartile,
     startDate: startDate,
     endDate: endDate
   },
@@ -22,5 +22,5 @@ async function getActorSuccess(name, startDate, endDate) {
     console.error(err);
   }
 }
-module.exports.getActors = getActors;
-module.exports.getActorSuccess = getActorSuccess;
+
+module.exports.getSeasonalQuartiles = getSeasonalQuartiles;

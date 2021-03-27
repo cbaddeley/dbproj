@@ -1,42 +1,25 @@
-const dataService = require("./actorDataService");
+const dataService = require("./seasonDataService");
 
-function mapNames(dbNames) {
-    return dbNames.rows.map(actor => {
-      return {
-        id: actor.ACTOR_ID,
-        name: actor.ACTOR_NAME
-      }
-    }); 
-}
 
-function mapActorSucces(dbActorSuccess) {
-  return dbActorSuccess.rows.map(d => {
+function mapSeasonQuartiles(dbSeasonalQueries) {
+  return dbSeasonalQueries.rows.map(d => {
     return {
-      releaseDate: d.RELEASE_DATE,
-      title: d.TITLE,
+      year : d.YR,
+      season: d.SEASON,
       avgRating: d.AVG_RATING,
       avgROI: d.ROI,
     }
   });
 }
 
-async function findActor(name) {
+
+async function getSeasonalQuartiles(quartile, startDate, endDate) {
   try {
-    var actors = await dataService.getActors(name);
-    return mapNames(actors);
+    var seasonQuartiles = await dataService.getSeasonalQuartiles(quartile, startDate, endDate);
+    return mapSeasonQuartiles(seasonQuartiles);
   } catch (err) {
     console.error(err);
   }
 }
 
-async function getActorSuccess(name, startDate, endDate) {
-  try {
-    var actorSuccess = await dataService.getActorSuccess(name, startDate, endDate);
-    return mapActorSucces(actorSuccess);
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-module.exports.findActor = findActor;
-module.exports.getActorSuccess = getActorSuccess;
+module.exports.getSeasonalQuartiles = getSeasonalQuartiles;
