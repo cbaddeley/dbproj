@@ -5,7 +5,8 @@ var budgetService = require("../data-access/countries/services/budgetService");
 router.get('/', async function (req, res, next) {
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
-    result = await budgetService.getBudgets(startDate, endDate)
+    const countryCode = req.query.countryCode;
+    result = await budgetService.getBudgets(startDate, endDate, countryCode)
     res.json(result);
 });
 

@@ -20,7 +20,7 @@ export class ActorService {
     }
     
     public searchActorSuccess(name: string, startDate: Date, endDate: Date) {
-        this._fetching.next(true)
+        this._fetching.next(true);
         return this.dataService.getActorSuccessData(name, formatDate(startDate), formatDate(endDate)).pipe(
             tap(() => this._fetching.next(false)),
             map((d) => this.mapActorSuccessData(d))
@@ -29,12 +29,13 @@ export class ActorService {
 
     private mapActorSuccessData(actorSuccessData: IActorSuccessDTO[]): IActorSuccess[] {
         return actorSuccessData.map(d => {
-            const date = new Date(d.yr, d.mo);
+            const date = new Date(d.releaseDate);
             const isoDate = date.toISOString();
             return {
-                date: isoDate,
-                roi: d.avgROI,
-                rating: d.avgRating
+                releaseDate: isoDate,
+                title: d.title,
+                avgROI: d.avgROI,
+                avgRating: d.avgRating
             }
         })
     }

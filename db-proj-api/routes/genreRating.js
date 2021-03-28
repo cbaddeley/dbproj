@@ -3,7 +3,10 @@ var router = express.Router();
 var genreService = require("../data-access/genres/services/genreService");
 
 router.get('/', async function (req, res, next) {
-    result = await genreService.getTop20Genres();
+    const genre = req.query.genreIn;
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+    result = await genreService.getGRresults();
     res.json(result);
 });
 

@@ -19,12 +19,13 @@ async function getBudgets() {
     }
 }
 
-async function getCountryYearBudgets(startDate, endDate) {
+async function getCountryYearBudgets(startDate, endDate, countryCode) {
   sql = budgetQueries.getCountryYearBudgets;
   binds = {
     startDate: startDate,
-    endDate: endDate
-  },
+    endDate: endDate,
+    countryCode: `%${countryCode}%`
+  };
 
 
   // For a complete list of options see the documentation.

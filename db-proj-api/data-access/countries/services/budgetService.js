@@ -13,9 +13,10 @@ function mapNames(dbNames) {
 function mapBudgets(dbBudgets) {
     return dbBudgets.rows.map(d => {
         return {
-            countryName: d.COUNTRY_NAME,
+            countryCode: d.COUNTRY_CODE,
             releaseDate: d.RELEASE_DATE,
-            budgetSum: d.BUDGETSUM,
+            budget: d.BUDGET,
+            countryName: d.COUNTRY_NAME
         }
     });
 }
@@ -29,9 +30,9 @@ async function findActor(name) {
     }
 }
 
-async function getBudgets(startDate, endDate) {
+async function getBudgets(startDate, endDate, countryCode) {
     try {
-        var daBudget = await dataService.getCountryYearBudgets(startDate, endDate);
+        var daBudget = await dataService.getCountryYearBudgets(startDate, endDate, countryCode);
         return mapBudgets(daBudget);
     } catch (err) {
         console.error(err);

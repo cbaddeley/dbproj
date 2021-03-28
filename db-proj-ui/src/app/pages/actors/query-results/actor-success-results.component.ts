@@ -1,23 +1,40 @@
-import { AfterViewInit, Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { IActorSuccess } from '../services/actor-model';
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
 
 @Component({
   selector: 'app-actor-success-results',
-  templateUrl: './actor-success-results.component.html'
+  templateUrl: './actor-success-results.component.html',
 })
-export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges {
+export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('charRef') charRef!: ElementRef;
   @Input() public data: IActorSuccess[] = [];
+  @Input() public metricToDisplay!: 'ratings' | 'roi' | 'both';
 
-  private chart!: am4charts.Chart;
+  private chart!: am4charts.XYChart;
 
   constructor(private zone: NgZone) { }
+  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && !changes.data.firstChange) {
       this.zone.runOutsideAngular(() => {
         this.createChart();
+        this.createMetricAxesAndSeries();
+        this.chart.legend = new am4charts.Legend();
+        this.chart.cursor = new am4charts.XYCursor();
       });
     }
   }
@@ -25,65 +42,108 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges {
   public ngAfterViewInit() {
     this.zone.runOutsideAngular(() => {
       this.createChart();
+      this.createMetricAxesAndSeries();
+      this.chart.legend = new am4charts.Legend();
+      this.chart.cursor = new am4charts.XYCursor();
     });
   }
 
+  public ngOnDestroy(): void {
+    if (this.chart) this.chart.dispose();
+  }
+
+  private createMetricAxesAndSeries() {
+    if (this.metricToDisplay == 'both') {
+      this.createAxisAndSeries('rating', 'Rating', false, 'Rating');
+      this.createAxisAndSeries('roi', 'ROI', true, 'ROI (%)', 'triangle');
+    } else if (this.metricToDisplay == 'ratings') {
+      this.createAxisAndSeries('rating', 'Rating', false, 'Rating');
+    } else {
+      this.createAxisAndSeries('roi', 'ROI', false, 'ROI (%)');
+    }
+  }
+
   private createChart() {
-      const chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
-      chart.data = this.data.map((f) => { 
-        return {
-          date: f.date, rating: f.rating
-        }
-      });
+    if (this.chart) this.chart.dispose();
+    this.chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
 
-      chart.dateFormatter.inputDateFormat = 'i';
+    this.chart.colors.step = 2;
 
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    this.chart.data = this.data.map((f) => {
+      return {
+        date: f.releaseDate,
+        rating: f.avgRating,
+        title: f.title,
+        roi: f.avgROI,
+      };
+    });
 
-      let series = chart.series.push(new am4charts.LineSeries());
-      series.dataFields.valueY = 'rating';
-      series.dataFields.dateX = 'date';
-      series.tooltipText = "{rating}"
-      series.strokeWidth = 2;
-      series.minBulletDistance = 15;
+    this.chart.dateFormatter.inputDateFormat = 'i';
 
-      // Make bullets grow on hover
-     // Drop-shaped tooltips
-// series.tooltip.background.cornerRadius = 20;
-// series.tooltip.background.strokeOpacity = 0;
-// series.tooltip.pointerOrientation = "vertical";
-// series.tooltip.label.minWidth = 40;
-// series.tooltip.label.minHeight = 40;
-// series.tooltip.label.textAlign = "middle";
-// series.tooltip.label.textValign = "middle";
+    let dateAxis = this.chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 50;
+  }
 
-// // Make bullets grow on hover
-// let bullet = series.bullets.push(new am4charts.CircleBullet());
-// bullet.circle.strokeWidth = 2;
-// bullet.circle.radius = 4;
-// bullet.circle.fill = am4core.color("#fff");
+  private createAxisAndSeries(
+    field: string,
+    name: string,
+    opposite: boolean,
+    axisTitle: string,
+    bulletType?: string
+  ) {
+    let valueAxis = this.chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = axisTitle;
 
-// let bullethover = bullet.states.create("hover");
-// bullethover.properties.scale = 1.3;
+    let series = this.chart.series.push(new am4charts.LineSeries());
+    series.dataFields.valueY = field;
+    series.dataFields.dateX = 'date';
+    series.strokeWidth = 2;
+    series.yAxis = valueAxis;
+    series.name = name;
+    series.tooltipText = '[bold]{title}[/] \n {name}: [bold]{valueY}[/]';
+    series.tensionX = 0.8;
+    series.showOnInit = true;
 
-// // Make a panning cursor
-// chart.cursor = new am4charts.XYCursor();
-// chart.cursor.behavior = "panXY";
-// chart.cursor.xAxis = dateAxis;
-// chart.cursor.snapToSeries = series;
+    let interfaceColors = new am4core.InterfaceColorSet();
 
-// // Create vertical scrollbar and place it before the value axis
-// chart.scrollbarY = new am4core.Scrollbar();
-// chart.scrollbarY.parent = chart.leftAxesContainer;
-// chart.scrollbarY.toBack();
+    switch (bulletType) {
+      case 'triangle':
+        let triangleBullet = series.bullets.push(new am4charts.Bullet());
+        triangleBullet.width = 12;
+        triangleBullet.height = 12;
+        triangleBullet.horizontalCenter = 'middle';
+        triangleBullet.verticalCenter = 'middle';
 
-// // Create a horizontal scrollbar with previe and place it underneath the date axis
-// chart.scrollbarX = new am4charts.XYChartScrollbar();
-// chart.scrollbarX.series.push(series);
-// chart.scrollbarX.parent = chart.bottomAxesContainer;
+        let triangle = triangleBullet.createChild(am4core.Triangle);
+        triangle.stroke = interfaceColors.getFor('background');
+        triangle.strokeWidth = 2;
+        triangle.direction = 'top';
+        triangle.width = 12;
+        triangle.height = 12;
+        break;
+      case 'rectangle':
+        let bullet = series.bullets.push(new am4charts.Bullet());
+        bullet.width = 10;
+        bullet.height = 10;
+        bullet.horizontalCenter = 'middle';
+        bullet.verticalCenter = 'middle';
 
-// dateAxis.start = 0.79;
-// dateAxis.keepSelection = true;
+        let rectangle = bullet.createChild(am4core.Rectangle);
+        rectangle.stroke = interfaceColors.getFor('background');
+        rectangle.strokeWidth = 2;
+        rectangle.width = 10;
+        rectangle.height = 10;
+        break;
+      default:
+        let circleBullet = series.bullets.push(new am4charts.CircleBullet());
+        circleBullet.circle.stroke = interfaceColors.getFor('background');
+        circleBullet.circle.strokeWidth = 2;
+        break;
+    }
+    valueAxis.renderer.line.strokeOpacity = 1;
+    valueAxis.renderer.line.strokeWidth = 2;
+    valueAxis.renderer.line.stroke = series.stroke;
+    valueAxis.renderer.labels.template.fill = series.stroke;
+    valueAxis.renderer.opposite = opposite;
   }
 }

@@ -25,7 +25,7 @@ async function getActorSuccess(name, startDate, endDate) {
     name: `%${name}%`,
     startDate: startDate,
     endDate: endDate
-  },
+  };
 
 
   // For a complete list of options see the documentation.

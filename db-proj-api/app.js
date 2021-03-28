@@ -18,6 +18,7 @@ var actors = require("./routes/actor");
 var actorSuccess = require("./routes/actorSuccess");
 var daBudgets = require("./routes/budgets");
 var seasons = require("./routes/seasons");
+var countries = require("./routes/country");
 
 app.use("/api/v1/ping", ping);
 app.use("/api/v1/genres", genres);
@@ -25,7 +26,7 @@ app.use("/api/v1/actors", actors);
 app.use("/api/v1/actorSuccess", actorSuccess);
 app.use("/api/v1/budgets", daBudgets);
 app.use("/api/v1/seasons", seasons);
-
+app.use("/api/v1/countries", countries);
 
 (async function () {
   database.connection = await database.init();
