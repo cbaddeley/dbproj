@@ -11,7 +11,7 @@ FROM (
             FROM Movie NATURAL JOIN RATING
             Group by imdb_id
         )
-        WHERE actor_id = :actorID -- id passed from user
+        WHERE UPPER(actor_name) LIKE UPPER(:name) -- name passed from user
         GROUP BY imdb_id
     )
 )  NATURAL FULL OUTER JOIN (
@@ -26,7 +26,7 @@ FROM (
                 WHERE budget <> 0 AND revenue <> 0
             )
         )
-        WHERE actor_id = :actorID  -- id passed from user
+        WHERE UPPER(actor_name) LIKE UPPER(:name) -- name passed from user
     ) 
 )
 WHERE release_date BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD') -- dates passed from user 
