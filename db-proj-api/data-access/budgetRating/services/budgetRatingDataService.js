@@ -3,11 +3,12 @@ const oracledb = require("oracledb");
 var database = require("../../database");
 
 
-async function getBudgetRating(startDate, endDate) {
+async function getBudgetRating(startDate, endDate, ratings) {
   sql = budgetRatingQueries.getBudgetRating;
   binds = {
     startDate: startDate,
-    endDate: endDate
+    endDate: endDate,
+    ratings: ratings
   };
 
 

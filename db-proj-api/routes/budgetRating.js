@@ -5,7 +5,8 @@ var budgetRatingService = require("../data-access/budgetRating/services/budgetRa
 router.get('/', async function (req, res, next) {
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
-    result = await budgetRatingService.getBudgetRating(startDate, endDate);
+    const ratings = req.query.ratings;
+    result = await budgetRatingService.getBudgetRating(startDate, endDate, ratings);
     res.json(result);
 });
 
