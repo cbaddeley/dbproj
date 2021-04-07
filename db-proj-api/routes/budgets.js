@@ -6,7 +6,9 @@ router.get('/', async function (req, res, next) {
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
     const countryCode = req.query.countryCode;
-    result = await budgetService.getBudgets(startDate, endDate, countryCode)
+    const countries = countryCode.split(',');
+
+    result = await budgetService.getBudgets(startDate, endDate, countries)
     res.json(result);
 });
 
