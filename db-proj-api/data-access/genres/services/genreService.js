@@ -3,8 +3,8 @@ const dataService = require("./genreDataService");
 function mapGenres(dbGenres) {
     return dbGenres.rows.map(genre => {
       return {
-        name: genre.GENRE_NAME,
-        id: genre.GENRE_ID
+        releaseDate:  genre.RELEASE_DATE,
+        avgRating:    genre.AVERAGE_RATING
       }
     });  
 }
@@ -18,9 +18,9 @@ async function getTop20Genres() {
   }
 }
 
-async function getGRresults(genreIn, startDate, endDate) {
+async function getGRresults(startDate, endDate, genreIDray) {
   try {
-    var allGenres = await dataService.getGenreRatings(genreIn, startDate, endDate);
+    var allGenres = await dataService.getGenreRatings(startDate, endDate, genreIDray);
     return mapGenres(allGenres);
   } catch (err) {
     console.error(err);
