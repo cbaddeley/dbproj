@@ -7,31 +7,36 @@
     <div class="divider"></div>
     <form class="form" [formGroup]="actorSuccessForm">
       <div class="form-row">
-        <mat-form-field class="example-full-width">
-          <mat-label>Name</mat-label>
-          <input
-            type="text"
-            required
-            matInput
-            formControlName="name"
-            [matAutocomplete]="auto"
-          />
-          <mat-error *ngIf="actorSuccessForm.get('name')?.invalid">Name is required</mat-error>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option
-              *ngFor="let option of filteredOptions | async"
-              [value]="option"
-            >
-              {{ option.name }}
-            </mat-option>
-          </mat-autocomplete>
-          
-        </mat-form-field>
+        <div class="form-name-array" formArrayName="names">
+          <ng-container *ngFor="let name of names.controls; index as i">
+            <mat-form-field class="example-full-width">
+              <mat-label>Name</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControlName]="i"
+                [matAutocomplete]="auto"
+              />
+              <!-- <mat-error *ngIf="actorSuccessForm.get('name')?.invalid">Name is required</mat-error> -->
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option
+                  *ngFor="let option of suggestions[i]"
+                  [value]="option"
+                >
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+              
+            </mat-form-field>
 
+          </ng-container>
+          <!-- <button (click)="addActor()">Add Actor</button> -->
+      </div>
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input
-            formGroupName="range"
+            [formGroup]="range"
+            [required]="true"
             [rangePicker]="picker"
           >
             <input
@@ -60,7 +65,7 @@
         </div>
       </div>
       <div class="form-row" style="flex-direction: row-reverse">
-        <button [ngClass]="{'btn--disabled': actorSuccessForm.invalid}" [disabled]="actorSuccessForm.invalid" (click)="onSubmit()">Submit</button>
+        <button [ngClass]="{'btn--disabled': actorSuccessForm.invalid || range.invalid}" [disabled]="actorSuccessForm.invalid || range.invalid" (click)="onSubmit()">Submit</button>
       </div>
     </form>
   </div>
