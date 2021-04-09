@@ -23,13 +23,19 @@ async function getGenres() {
     }
 }
 
-async function getGenreRatings(startDate, endDate, genreIn) {
-  sql = genreRatings.themGenreRatings;
+async function getGenreRatings(startDate, endDate, genreIDray) {
+  let insertedsql = "(";
+  for (let i = 0; i < genreIDray.length; i++) {
+    if (i == genreIDray.length - 1) insertedsql += `'${genreIDray[i]}'`;
+    else insertedsql += `'${genreIDray[i]}'` + ", ";
+  }
+  insertedsql += ")";
+
+  let sql = `${genreRatings.themGenreRatings1}${insertedsql}${genreRatings.themGenreRatings2}`;
 
   binds = {
     startDate: startDate,
     endDate: endDate,
-    genreIn: genreIn
   };
 
   // For a complete list of options see the documentation.
