@@ -1,22 +1,21 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export const metricValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const roi = control.get('roi');
-  const ratings = control.get('ratings');
+export const yearRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const startYear = control.get('startYear');
+  const endYear = control.get('endYear');
 
-  const invalid = !(roi?.value as boolean) && !(ratings?.value as boolean);
-  return invalid ? { metricRequired: true } : null;
+  const invalid = (startYear.value < 1850 || startYear.value > 2021) || 
+                  (endYear.value < 1850 || endYear.value > 2021) ||
+                  startYear.value >= endYear.value;
+  return invalid ? { invalidYears: true } : null;
 };
 
 export interface ISeasonSuccessFormData {
-    roi: boolean;
-    ratings: boolean;
-    range: {
-        end: Date;
-        start: Date;
-    };
-    success: 'most' | 'least';
+    startYear: number;
+    endYear: number;
+    metric: 'roi' | 'ratings';
+    success: 'top_roi' | 'bottom_roi';
 }
 
 @Component({
@@ -27,28 +26,22 @@ export class FilmSeasonsFormComponent {
   @Output() onSubmitEvent: EventEmitter<ISeasonSuccessFormData> = new EventEmitter<ISeasonSuccessFormData>();
 
   public seasonSuccessForm = new FormGroup({
-    range: new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
-    }),
-    roi: new FormControl(),
-    ratings: new FormControl(),
-    success: new FormControl('most')
-  }, { validators: metricValidator });
+    startYear: new FormControl(),
+    endYear: new FormControl(),
+    metric: new FormControl('roi'),
+    success: new FormControl('top_roi')
+  }, { validators: yearRangeValidator });
 
-  get startDateError(): boolean {
-    return !!(this.seasonSuccessForm.get('range') as FormGroup).controls.start.errors;
+  get startYearError(): boolean {
+    return ((this.seasonSuccessForm.get('startYear') as FormControl).value < 1850 || (this.seasonSuccessForm.get('startYear') as FormControl).value > 2021) && (this.seasonSuccessForm.get('startYear') as FormControl).touched;
   }
 
-  get endDateError(): boolean {
-    return !!(this.seasonSuccessForm.get('range') as FormGroup).controls.end.errors;
+  get endYearError(): boolean {
+    return (this.seasonSuccessForm.get('endYear') as FormControl).value < 1850 || (this.seasonSuccessForm.get('endYear') as FormControl).value > 2021 && (this.seasonSuccessForm.get('endYear') as FormControl).touched;
   }
 
-  get metricError(): boolean {
-    return !(this.seasonSuccessForm.get('roi')?.value as boolean) && 
-    !(this.seasonSuccessForm.get('ratings')?.value as boolean) &&
-    ((this.seasonSuccessForm.get('roi')?.touched as boolean) || 
-    (this.seasonSuccessForm.get('ratings')?.touched) as boolean)
+  get yearsError(): boolean {
+    return (this.seasonSuccessForm.get('endYear') as FormControl).value <= (this.seasonSuccessForm.get('endYear') as FormControl).value && (this.seasonSuccessForm.get('startYear') as FormControl).touched && (this.seasonSuccessForm.get('endYear') as FormControl).touched;
   }
 
   public onSubmit() {

@@ -8,4 +8,5 @@ export interface IActorSuccess {
     title: string;
     avgRating: number;
     avgROI: number;
+    actorName: string;
 }

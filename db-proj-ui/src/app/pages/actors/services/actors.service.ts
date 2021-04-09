@@ -23,11 +23,11 @@ export class ActorService {
         this._fetching.next(true);
         return this.dataService.getActorSuccessData(name, formatDate(startDate), formatDate(endDate)).pipe(
             tap(() => this._fetching.next(false)),
-            map((d) => this.mapActorSuccessData(d))
+            map((d) => this.mapActorSuccessData(d, name))
         );
     }
 
-    private mapActorSuccessData(actorSuccessData: IActorSuccessDTO[]): IActorSuccess[] {
+    private mapActorSuccessData(actorSuccessData: IActorSuccessDTO[], actorName: string): IActorSuccess[] {
         return actorSuccessData.map(d => {
             const date = new Date(d.releaseDate);
             const isoDate = date.toISOString();
@@ -35,7 +35,8 @@ export class ActorService {
                 releaseDate: isoDate,
                 title: d.title,
                 avgROI: d.avgROI,
-                avgRating: d.avgRating
+                avgRating: d.avgRating,
+                actorName
             }
         })
     }

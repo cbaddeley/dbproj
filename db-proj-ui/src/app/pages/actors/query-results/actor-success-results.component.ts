@@ -20,7 +20,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 })
 export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('charRef') charRef!: ElementRef;
-  @Input() public data: IActorSuccess[] = [];
+  @Input() public data: IActorSuccess[][] = [[]];
   @Input() public metricToDisplay!: 'ratings' | 'roi' | 'both';
 
   private chart!: am4charts.XYChart;
@@ -69,12 +69,13 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, O
 
     this.chart.colors.step = 2;
 
-    this.chart.data = this.data.map((f) => {
+    this.chart.data = this.data[0].map((f) => {
       return {
         date: f.releaseDate,
         rating: f.avgRating,
         title: f.title,
         roi: f.avgROI,
+        actorName: f.actorName
       };
     });
 

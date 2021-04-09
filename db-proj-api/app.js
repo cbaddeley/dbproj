@@ -20,6 +20,7 @@ var daBudgets = require("./routes/budgets");
 var seasons = require("./routes/seasons");
 var countries = require("./routes/country");
 var budgetRating = require("./routes/budgetRating");
+var genreRating = require("./routes/genreRating"); // Daniel added 4/7/21
 
 app.use("/api/v1/ping", ping);
 app.use("/api/v1/genres", genres);
@@ -29,6 +30,7 @@ app.use("/api/v1/budgets", daBudgets);
 app.use("/api/v1/seasons", seasons);
 app.use("/api/v1/countries", countries);
 app.use("/api/v1/budgetrating", budgetRating);
+app.use("/api/v1/genreRating", genreRating);  // Daniel added 4/7/21
 
 (async function () {
   database.connection = await database.init();
