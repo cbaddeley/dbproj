@@ -4,11 +4,20 @@ var database = require("../../database");
 
 
 async function getBudgetRating(startDate, endDate, ratings) {
-  sql = budgetRatingQueries.getBudgetRating;
+  let insertedsql = "(";
+  for (let i = 0; i < ratings.length; i++) {
+    if (i == ratings.length - 1) insertedsql += `'${ratings[i]}'`;
+    else insertedsql += `'${ratings[i]}'` + ", ";
+  }
+  insertedsql += ")";
+  // sql = budgetRatingQueries.getBudgetRating;
+
+  let sql = `${budgetRatingQueries.getBudgetRatingPart1}${insertedsql}${budgetRatingQueries.getBudgetRatingPart2}`;
+
   binds = {
     startDate: startDate,
     endDate: endDate,
-    ratings: ratings
+    //ratings: ratings
   };
 
 

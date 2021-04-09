@@ -7,17 +7,18 @@ function mapBudgetRating(dbBudgetRating) {
       //title: d.TITLE,
       //avgRating: d.AVG_RATING,
       //avgROI: d.ROI,
-      userID: d.USER_ID,
-      movieID: d.MOVIE_ID,
-      timeStamp: d.TIME_STAMP,
-      rating: d.RATING
+      year: d.YEAR,
+      month: d.MONTH,
+      rating: d.AVG_RATING,
+      budget_sum: d.BUDGET_SUM,
+      budget_per_rating: d.BUDGET_PER_RATING
     }
   });
 }
 
-async function getBudgetRating(startDate, endDate) {
+async function getBudgetRating(startDate, endDate, ratings) {
   try {
-    var budgetRating = await dataService.getBudgetRating(startDate, endDate);
+    var budgetRating = await dataService.getBudgetRating(startDate, endDate, ratings);
     return mapBudgetRating(budgetRating);
   } catch (err) {
     console.error(err);
