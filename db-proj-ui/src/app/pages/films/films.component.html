@@ -88,6 +88,7 @@
           <app-film-budgets-results
             *ngSwitchCase="'budgets'"
             [data]="$any(results)"
+            [budgetCompareAverage]="budgetCompareAverage"
           ></app-film-budgets-results>
           <app-film-ratings-results
             *ngSwitchCase="'ratings'"

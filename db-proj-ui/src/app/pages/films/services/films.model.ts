@@ -17,7 +17,12 @@ export interface IFilmRatings {
 }
 
 export interface IFilmBudgets {
-
+    countryCode: string;
+    month: number;
+    budgetSum: number;
+    countryName: string;
+    year: number;
+    budgetAvg: number;
 }
 
 export interface IFilmBudgetRatings {

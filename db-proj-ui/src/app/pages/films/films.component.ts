@@ -29,6 +29,7 @@ export class FilmsComponent {
   public searched = false;
   public results: ISuccessfulSeason[] | IFilmRatings[] | IFilmBudgetRatings[] | IFilmBudgetRatings[] = [];
   public seasonsMetricToDisplay!: 'ratings' | 'roi';
+  public budgetCompareAverage!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,9 +47,10 @@ export class FilmsComponent {
   }
 
   public handleBudgetFormSubmit(formData: IBudgetFormData) {
-    this.service.searchFilmBudgets().subscribe(data => {
+    this.service.searchFilmBudgets(formData.countries, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
+      this.budgetCompareAverage = formData.compare;
     });
   }
 

@@ -34,8 +34,12 @@ export class FilmDataService {
         return of([]).pipe(delay(2000))
     }
 
-    public getFilmBudgets(): Observable<IFilmBudgetsDTO[]> {
-        return of([]).pipe(delay(2000))
+    public getFilmBudgets(countries: string[], startDate: string, endDate: string): Observable<IFilmBudgetsDTO[]> {
+        let params = new HttpParams();
+        params = params.append('countryCode', countries.join(','));
+        params = params.append('startDate', startDate);
+        params = params.append('endDate', endDate);
+        return this.http.get<IFilmBudgetsDTO[]>(`${this.baseUrl}/budgets`, {params: params});
     }
 
     public getFilmBudgetRatings(): Observable<IFilmBudgetRatingsDTO[]> {

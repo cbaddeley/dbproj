@@ -1,8 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
   NgZone,
+  OnChanges,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -14,7 +16,7 @@ import { ISuccessfulSeason, Season } from '../services/films.model';
   selector: 'app-film-seasons-results',
   templateUrl: './film-seasons-results.component.html',
 })
-export class FilmSeasonsResultsComponent {
+export class FilmSeasonsResultsComponent implements OnChanges, AfterViewInit {
   @ViewChild('charRef') charRef!: ElementRef;
   @Input() public data: ISuccessfulSeason[] = [];
   @Input() public metricToDisplay!: 'ratings' | 'roi' | 'both';
@@ -23,7 +25,7 @@ export class FilmSeasonsResultsComponent {
 
   constructor(private zone: NgZone) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes && !changes.data.firstChange) {
       this.zone.runOutsideAngular(() => {
         this.createChart();
