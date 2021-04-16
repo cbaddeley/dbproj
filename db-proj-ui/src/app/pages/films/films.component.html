@@ -82,19 +82,21 @@
         <div [ngSwitch]="activeQuery | async">
           <app-film-seasons-results
             *ngSwitchCase="'seasons'"
-            [data]="results"
+            [data]="$any(results)"
+            [metricToDisplay]="seasonsMetricToDisplay"
           ></app-film-seasons-results>
           <app-film-budgets-results
             *ngSwitchCase="'budgets'"
-            [data]="results"
+            [data]="$any(results)"
+            [budgetCompareAverage]="budgetCompareAverage"
           ></app-film-budgets-results>
           <app-film-ratings-results
             *ngSwitchCase="'ratings'"
-            [data]="results"
+            [data]="$any(results)"
           ></app-film-ratings-results>
           <app-film-buget-ratings-results
             *ngSwitchCase="'budgetratings'"
-            [data]="results"
+            [data]="$any(results)"
           ></app-film-buget-ratings-results>
         </div>
       </ng-container>

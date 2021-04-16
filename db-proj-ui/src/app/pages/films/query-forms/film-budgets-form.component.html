@@ -7,30 +7,37 @@
     <div class="divider"></div>
     <form class="form" [formGroup]="budgetForm">
         <div class="form-row">
-          <mat-form-field>
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input formGroupName="range" [rangePicker]="picker">
+          <div class="yearInputs">
+            <mat-form-field>
+              <mat-label>Start Year</mat-label>
               <input
-                matStartDate
+                type="number"
                 required
-                formControlName="start"
-                placeholder="Start date"
+                [min]="1850"
+                [max]="2021"
+                [step]="1"
+                matInput
+                formControlName="startYear"
               />
+              <mat-error *ngIf="startYearError">Year must be between 1850-2021</mat-error>
+              <mat-error *ngIf="yearsError">Start year must be before end year</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>End Year</mat-label>
               <input
-                matEndDate
+                type="number"
                 required
-                formControlName="end"
-                placeholder="End date"
+                [min]="1850"
+                [max]="2021"
+                [step]="1"
+                matInput
+                formControlName="endYear"
               />
-            </mat-date-range-input>
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error *ngIf="startDateError">Invalid start date</mat-error>
-            <mat-error *ngIf="endDateError">Invalid end date</mat-error>
-          </mat-form-field>
+              <mat-error *ngIf="endYearError">Year must be between 1850-2021</mat-error>
+              <mat-error *ngIf="yearsError">End year must be after start year</mat-error>
+            </mat-form-field>
+            
+          </div>
           <mat-form-field appearance="fill">
             <mat-label>Country Segmentation</mat-label>
             <mat-select [disableRipple]="true" [required]="true" formControlName="countries" multiple>

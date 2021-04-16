@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgZone, 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import { formatDate } from 'src/app/utils/date-util';
 import { IBudgetRatingsFormData } from './query-forms/film-budget-ratings-form.component';
 import { IBudgetFormData } from './query-forms/film-budgets-form.component';
 import { IRatingsFormData } from './query-forms/film-ratings-form.component';
@@ -26,28 +27,30 @@ export class FilmsComponent {
   );
   
   public searched = false;
-  // public successfulSeasonsData: ISuccessfulSeason[] = [];
-  // public filmRatingsData: IFilmRatings[] = [];
-  // public filmBudgetData: IFilmBudgets[] = [];
-  // public filmBudgetRatingsData: IFilmBudgetRatings[] = [];
   public results: ISuccessfulSeason[] | IFilmRatings[] | IFilmBudgetRatings[] | IFilmBudgetRatings[] = [];
-  
+  public seasonsMetricToDisplay!: 'ratings' | 'roi';
+  public budgetCompareAverage!: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private service: FilmService
   ) { }
 
   public handleSuccessFormSubmit(formData: ISeasonSuccessFormData) {
-    this.service.searchSuccessfulSeasons().subscribe(data => {
+    this.service.searchSuccessfulSeasons(formData.success, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
+      if (formData.metric == 'roi') {
+        this.seasonsMetricToDisplay = 'roi';
+      } else this.seasonsMetricToDisplay = 'ratings';
     });
   }
 
   public handleBudgetFormSubmit(formData: IBudgetFormData) {
-    this.service.searchFilmBudgets().subscribe(data => {
+    this.service.searchFilmBudgets(formData.countries, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
+      this.budgetCompareAverage = formData.compare;
     });
   }
 

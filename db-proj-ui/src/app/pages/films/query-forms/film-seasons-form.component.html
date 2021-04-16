@@ -7,44 +7,75 @@
     <div class="divider"></div>
     <form class="form" [formGroup]="seasonSuccessForm">
       <div class="form-row">
-        <mat-form-field>
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input formGroupName="range" [rangePicker]="picker">
+        <div class="yearInputs">
+          <mat-form-field>
+            <mat-label>Start Year</mat-label>
             <input
-              matStartDate
+              type="number"
               required
-              formControlName="start"
-              placeholder="Start date"
+              [min]="1850"
+              [max]="2021"
+              [step]="1"
+              matInput
+              formControlName="startYear"
             />
+            <mat-error *ngIf="startYearError">Year must be between 1850-2021</mat-error>
+            <mat-error *ngIf="yearsError">Start year must be before end year</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>End Year</mat-label>
             <input
-              matEndDate
+              type="number"
               required
-              formControlName="end"
-              placeholder="End date"
+              [min]="1850"
+              [max]="2021"
+              [step]="1"
+              matInput
+              formControlName="endYear"
             />
-          </mat-date-range-input>
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-          <mat-error *ngIf="startDateError">Invalid start date</mat-error>
-          <mat-error *ngIf="endDateError">Invalid end date</mat-error>
-        </mat-form-field>
-        <div class="checkbox-group" style="margin-bottom: 5px;">
-          <mat-label>Metric</mat-label>
-          <mat-checkbox disableRipple formControlName="roi" class="example-margin">Return on Investment</mat-checkbox>
-          <mat-checkbox disableRipple formControlName="ratings" class="example-margin">Movie Ratings</mat-checkbox>
-          <mat-error *ngIf="metricError">Metric Required</mat-error>
+            <mat-error *ngIf="endYearError">Year must be between 1850-2021</mat-error>
+            <mat-error *ngIf="yearsError">End year must be after start year</mat-error>
+          </mat-form-field>
+          
         </div>
-        <mat-radio-group [required]="true" formControlName="success"
-        class="radio-group" style="margin-top: 20px">
-          <mat-radio-button [disableRipple]="true" value="most">Most Successful</mat-radio-button>
-          <mat-radio-button [disableRipple]="true" value="least">Least Successful</mat-radio-button>
+
+        <div class="checkbox-group" style="margin-bottom: 5px">
+          <mat-label>Metric</mat-label>
+          <mat-radio-group
+            [required]="true"
+            formControlName="metric"
+            class="radio-group"
+          >
+            <mat-radio-button [disableRipple]="true" value="roi"
+              >Return on Investment</mat-radio-button
+            >
+            <mat-radio-button [disableRipple]="true" value="ratings"
+              >Movie Ratings</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <mat-radio-group
+          [required]="true"
+          formControlName="success"
+          class="radio-group"
+          style="margin-top: 20px"
+        >
+          <mat-radio-button [disableRipple]="true" value="top_roi"
+            >Most Successful</mat-radio-button
+          >
+          <mat-radio-button [disableRipple]="true" value="bottom_roi"
+            >Least Successful</mat-radio-button
+          >
         </mat-radio-group>
       </div>
       <div class="form-row" style="flex-direction: row-reverse">
-        <button [ngClass]="{'btn--disabled': seasonSuccessForm.invalid}" [disabled]="seasonSuccessForm.invalid" (click)="onSubmit()">Submit</button>
+        <button
+          [ngClass]="{ 'btn--disabled': seasonSuccessForm.invalid }"
+          [disabled]="seasonSuccessForm.invalid"
+          (click)="onSubmit()"
+        >
+          Submit
+        </button>
       </div>
     </form>
   </div>

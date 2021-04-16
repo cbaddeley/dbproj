@@ -1,7 +1,7 @@
 const themGenreRatings1 = `
 WITH a AS
 (
-	SELECT Movie_id, Release_Date, Genre_ID
+	SELECT Movie_id, Release_Date, Genre_ID, Genre_Name
 	FROM    Genre       NATURAL JOIN
             Movie       NATURAL JOIN 
             Has_Genre
@@ -15,14 +15,14 @@ const themGenreRatings2 = `
 ),
     b AS
 (
-    SELECT Release_Date, SUM(Rating) s, COUNT(Rating) c
+    SELECT Release_Date, Genre_Name, SUM(Rating) s, COUNT(Rating) c
     FROM a NATURAL JOIN Rating
-    GROUP BY Release_Date
+    GROUP BY Genre_Name, Release_Date
     HAVING SUM(Rating) > 0
 )
-SELECT Release_Date, TO_CHAR(s/c, 9.9) Average_Rating 
+SELECT Release_Date, Genre_Name, TO_CHAR(s/c, 9.9) Average_Rating 
 FROM b
-ORDER BY Release_Date
+ORDER BY Genre_Name, Release_Date
 `;
 
 module.exports.themGenreRatings1 = themGenreRatings1;

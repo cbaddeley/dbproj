@@ -9,6 +9,7 @@
       >
       <a routerLinkActive="routeIsActive" [routerLink]="['/actors']">ACTORS</a>
       <a routerLinkActive="routeIsActive" [routerLink]="['/films']">FILMS</a>
+      <button style="margin-left: auto;" (click)="displayStatistics()"><mat-icon aria-hidden="false" aria-label="Example home icon">info_outline</mat-icon></button>
     </nav>
     <router-outlet></router-outlet>
   </div>

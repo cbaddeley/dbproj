@@ -1,16 +1,25 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ICountry } from '../services/country';
 import { FilmService } from '../services/film.service';
 
+
+export const yearRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const startYear = control.get('startYear');
+  const endYear = control.get('endYear');
+
+  const invalid = (startYear.value < 1850 || startYear.value > 2021) || 
+                  (endYear.value < 1850 || endYear.value > 2021) ||
+                  startYear.value >= endYear.value;
+  return invalid ? { invalidYears: true } : null;
+};
+
 export interface IBudgetFormData {
   compare: boolean;
   countries: string[];
-  range: {
-      end: Date;
-      start: Date;
-  };
+  startYear: number;
+  endYear: number;
 }
 
 @Component({
@@ -21,22 +30,24 @@ export class FilmBudgetsFormComponent {
   @Output() onSubmitEvent: EventEmitter<IBudgetFormData> = new EventEmitter<IBudgetFormData>();
 
   public budgetForm = new FormGroup({
-    range: new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
-    }),
+    startYear: new FormControl(),
+    endYear: new FormControl(),
     countries: new FormControl(),
     compare: new FormControl(false)
-  });
+  }, { validators: yearRangeValidator });
 
   public countries: Observable<ICountry[]> = this.service.getCountries();
 
-  get startDateError(): boolean {
-    return !!(this.budgetForm.get('range') as FormGroup).controls.start.errors;
+  get startYearError(): boolean {
+    return ((this.budgetForm.get('startYear') as FormControl).value < 1850 || (this.budgetForm.get('startYear') as FormControl).value > 2021) && (this.budgetForm.get('startYear') as FormControl).touched;
   }
 
-  get endDateError(): boolean {
-    return !!(this.budgetForm.get('range') as FormGroup).controls.end.errors;
+  get endYearError(): boolean {
+    return (this.budgetForm.get('endYear') as FormControl).value < 1850 || (this.budgetForm.get('endYear') as FormControl).value > 2021 && (this.budgetForm.get('endYear') as FormControl).touched;
+  }
+
+  get yearsError(): boolean {
+    return (this.budgetForm.get('endYear') as FormControl).value <= (this.budgetForm.get('endYear') as FormControl).value && (this.budgetForm.get('startYear') as FormControl).touched && (this.budgetForm.get('endYear') as FormControl).touched;
   }
 
   constructor(private service: FilmService) { }
