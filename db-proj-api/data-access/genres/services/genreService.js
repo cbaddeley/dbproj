@@ -5,7 +5,8 @@ function mapGenres(dbGenres) {
       return {
         releaseDate:  genre.RELEASE_DATE,
         avgRating:    genre.AVERAGE_RATING,
-        genre:        genre.GENRE_NAME
+        genre:        genre.GENRE_NAME,
+        title:        genre.TITLE
       }
     });  
 }

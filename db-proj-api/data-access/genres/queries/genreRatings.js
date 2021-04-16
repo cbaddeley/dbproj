@@ -1,7 +1,7 @@
 const themGenreRatings1 = `
 WITH a AS
 (
-	SELECT Movie_id, Release_Date, Genre_ID, Genre_Name
+	SELECT Movie_id, Release_Date, Genre_ID, Genre_Name, Title
 	FROM    Genre       NATURAL JOIN
             Movie       NATURAL JOIN 
             Has_Genre
@@ -15,12 +15,12 @@ const themGenreRatings2 = `
 ),
     b AS
 (
-    SELECT Release_Date, Genre_Name, SUM(Rating) s, COUNT(Rating) c
+    SELECT Release_Date, Genre_Name, Title, SUM(Rating) s, COUNT(Rating) c
     FROM a NATURAL JOIN Rating
-    GROUP BY Genre_Name, Release_Date
+    GROUP BY Genre_Name, Release_Date, Title
     HAVING SUM(Rating) > 0
 )
-SELECT Release_Date, Genre_Name, s/c AS Average_Rating 
+SELECT Release_Date, Genre_Name, Title, s/c AS Average_Rating 
 FROM b
 ORDER BY Genre_Name, Release_Date
 `;
