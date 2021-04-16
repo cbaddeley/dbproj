@@ -18,6 +18,7 @@ const themGenreRatings2 = `
     SELECT Release_Date, SUM(Rating) s, COUNT(Rating) c
     FROM a NATURAL JOIN Rating
     GROUP BY Release_Date
+    HAVING SUM(Rating) > 0
 )
 SELECT Release_Date, TO_CHAR(s/c, 9.9) Average_Rating 
 FROM b
