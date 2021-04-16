@@ -8,6 +8,9 @@ WITH totals AS (
         SELECT COUNT(*) cnt, 'cast' as from_tbl
         FROM CAST 
         UNION
+        SELECT COUNT(*) cnt, 'company' as from_tbl
+        FROM Company
+        UNION
         SELECT COUNT(*) cnt, 'country' as from_tbl
         FROM Country
         UNION
@@ -22,6 +25,9 @@ WITH totals AS (
         UNION
         SELECT COUNT(*) cnt, 'movie' as from_tbl
         FROM Movie
+        UNION
+        SELECT COUNT(*) cnt, 'production' as from_tbl
+        FROM Production
         UNION
         SELECT COUNT(*) cnt, 'rating' as from_tbl
         FROM Rating
