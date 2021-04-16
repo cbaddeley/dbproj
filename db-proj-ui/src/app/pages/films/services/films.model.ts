@@ -13,7 +13,9 @@ export enum Season {
 }
 
 export interface IFilmRatings {
-
+    releaseDate: string;
+    avgRating: number;
+    genre: string;
 }
 
 export interface IFilmBudgets {

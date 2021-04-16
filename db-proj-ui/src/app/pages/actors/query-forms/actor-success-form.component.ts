@@ -5,10 +5,9 @@ import {
   FormControl,
   FormGroup,
   ValidationErrors,
-  ValidatorFn,
-  Validators,
+  ValidatorFn
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   debounceTime,
   filter,
@@ -17,7 +16,6 @@ import {
   startWith,
   switchMap,
 } from 'rxjs/operators';
-import { IActor } from '../services/actor-model';
 import { ActorService } from '../services/actors.service';
 import { ISuccessFormValue } from './success-form.interface';
 

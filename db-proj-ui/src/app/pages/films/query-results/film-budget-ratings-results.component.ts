@@ -30,8 +30,8 @@ export class FilmBudgetRatingsResultsComponent {
     this.zone.runOutsideAngular(() => {
       this.createChart();
       this.createMetricAxisAndSeries();
-        this.chart.legend = new am4charts.Legend();
-        this.chart.cursor = new am4charts.XYCursor();
+      this.chart.legend = new am4charts.Legend();
+      this.chart.cursor = new am4charts.XYCursor();
     });
   }
 

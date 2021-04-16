@@ -6,10 +6,8 @@ import { IGenre } from '../services/genre';
 
 export interface IRatingsFormData {
   genreIds: number[];
-  range: {
-      end: Date;
-      start: Date;
-  };
+  end: Date;
+  start: Date;
 }
 
 @Component({
@@ -17,29 +15,38 @@ export interface IRatingsFormData {
   templateUrl: './film-ratings-form.component.html',
 })
 export class FilmRatingsFormComponent {
-  @Output() onSubmitEvent: EventEmitter<IRatingsFormData> = new EventEmitter<IRatingsFormData>();
+  @Output()
+  onSubmitEvent: EventEmitter<IRatingsFormData> = new EventEmitter<IRatingsFormData>();
 
-  get startDateError(): boolean {
-    return !!(this.ratingsForm.get('range') as FormGroup).controls.start.errors;
-  }
-
-  get endDateError(): boolean {
-    return !!(this.ratingsForm.get('range') as FormGroup).controls.end.errors;
-  }
-
-  constructor(private service: FilmService) { }
+  constructor(private service: FilmService) {}
 
   public genres: Observable<IGenre[]> = this.service.getGenres();
 
   public ratingsForm = new FormGroup({
-    range: new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
-    }),
-    genreIds: new FormControl()
+    genreIds: new FormControl(),
   });
 
+  public range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
+  get startDateError(): boolean {
+    return (
+      !!(this.range as FormGroup).controls.start.errors && this.range.touched
+    );
+  }
+
+  get endDateError(): boolean {
+    return (
+      !!(this.range as FormGroup).controls.end.errors && this.range.touched
+    );
+  }
+
   public onSubmit() {
-    this.onSubmitEvent.emit(this.ratingsForm.value);
+    this.onSubmitEvent.emit({
+      ...this.ratingsForm.value,
+      ...this.range.value,
+    });
   }
 }

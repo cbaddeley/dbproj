@@ -1,16 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgZone, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { formatDate } from 'src/app/utils/date-util';
 import { IBudgetRatingsFormData } from './query-forms/film-budget-ratings-form.component';
 import { IBudgetFormData } from './query-forms/film-budgets-form.component';
 import { IRatingsFormData } from './query-forms/film-ratings-form.component';
 import { ISeasonSuccessFormData } from './query-forms/film-seasons-form.component';
 import { FilmService } from './services/film.service';
 import { IFilmBudgetRatings, IFilmBudgets, IFilmRatings, ISuccessfulSeason } from './services/films.model';
-
-
 
 @Component({
   selector: 'app-films',
@@ -27,7 +24,7 @@ export class FilmsComponent {
   );
   
   public searched = false;
-  public results: ISuccessfulSeason[] | IFilmRatings[] | IFilmBudgetRatings[] | IFilmBudgetRatings[] = [];
+  public results: ISuccessfulSeason[] | IFilmRatings[] | IFilmBudgetRatings[] | IFilmBudgets[] = [];
   public seasonsMetricToDisplay!: 'ratings' | 'roi';
   public budgetCompareAverage!: boolean;
 
@@ -55,7 +52,7 @@ export class FilmsComponent {
   }
 
   public handleRatingsFormSubmit(formData: IRatingsFormData) {
-    this.service.searchFilmRatings().subscribe(data => {
+    this.service.searchFilmRatings(formData.genreIds, formData.start, formData.end).subscribe(data => {
       this.searched = true;
       this.results = data;
     });

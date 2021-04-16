@@ -30,8 +30,12 @@ export class FilmDataService {
         return this.http.get<ISuccessfulSeasonDTO[]>(`${this.baseUrl}/seasons`, {params: params});
     }
 
-    public getFilmRatings(): Observable<IFilmRatingsDTO[]> {
-        return of([]).pipe(delay(2000))
+    public getFilmRatings(genres: number[], startDate: string, endDate: string): Observable<IFilmRatingsDTO[]> {
+        let params = new HttpParams();
+        params = params.append('genreID', genres.join(','));
+        params = params.append('startDate', startDate);
+        params = params.append('endDate', endDate);
+        return this.http.get<IFilmRatingsDTO[]>(`${this.baseUrl}/genreRating`, {params: params});
     }
 
     public getFilmBudgets(countries: string[], startDate: string, endDate: string): Observable<IFilmBudgetsDTO[]> {

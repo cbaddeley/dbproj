@@ -20,7 +20,7 @@ const themGenreRatings2 = `
     GROUP BY Genre_Name, Release_Date
     HAVING SUM(Rating) > 0
 )
-SELECT Release_Date, Genre_Name, TO_CHAR(s/c, 9.9) Average_Rating 
+SELECT Release_Date, Genre_Name, s/c AS Average_Rating 
 FROM b
 ORDER BY Genre_Name, Release_Date
 `;
