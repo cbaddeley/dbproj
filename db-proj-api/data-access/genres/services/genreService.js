@@ -4,7 +4,8 @@ function mapGenres(dbGenres) {
     return dbGenres.rows.map(genre => {
       return {
         releaseDate:  genre.RELEASE_DATE,
-        avgRating:    genre.AVERAGE_RATING
+        avgRating:    genre.AVERAGE_RATING,
+        genre:        genre.GENRE_NAME
       }
     });  
 }
