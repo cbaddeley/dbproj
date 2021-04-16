@@ -27,8 +27,7 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, O
 
   constructor(private zone: NgZone) { }
   
-
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes && !changes.data.firstChange) {
       this.zone.runOutsideAngular(() => {
         this.createChart();
@@ -102,7 +101,6 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, O
     series.yAxis = valueAxis;
     series.name = name;
     series.tooltipText = '[bold]{title}[/] \n {name}: [bold]{valueY}[/]';
-    series.tensionX = 0.8;
     series.showOnInit = true;
 
     let interfaceColors = new am4core.InterfaceColorSet();

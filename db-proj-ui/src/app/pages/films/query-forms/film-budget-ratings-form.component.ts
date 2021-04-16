@@ -1,13 +1,19 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
+export const yearRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const startYear = control.get('startYear');
+  const endYear = control.get('endYear');
 
+  const invalid = (startYear.value < 1850 || startYear.value > 2021) || 
+                  (endYear.value < 1850 || endYear.value > 2021) ||
+                  startYear.value >= endYear.value;
+  return invalid ? { invalidYears: true } : null;
+};
 export interface IBudgetRatingsFormData {
   ratings: string[];
-  range: {
-      end: Date;
-      start: Date;
-  };
+  startYear: number;
+  endYear: number;
 }
 
 @Component({
@@ -18,19 +24,21 @@ export class FilmBudgetRatingsFormComponent {
   @Output() onSubmitEvent: EventEmitter<IBudgetRatingsFormData> = new EventEmitter<IBudgetRatingsFormData>();
 
   public budgetRatingsForm = new FormGroup({
-    range: new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
-    }),
+    startYear: new FormControl(),
+    endYear: new FormControl(),
     ratings: new FormControl()
-  });
+  }, { validators: yearRangeValidator });
 
-  get startDateError(): boolean {
-    return !!(this.budgetRatingsForm.get('range') as FormGroup).controls.start.errors;
+  get startYearError(): boolean {
+    return ((this.budgetRatingsForm.get('startYear') as FormControl).value < 1850 || (this.budgetRatingsForm.get('startYear') as FormControl).value > 2021) && (this.budgetRatingsForm.get('startYear') as FormControl).touched;
   }
 
-  get endDateError(): boolean {
-    return !!(this.budgetRatingsForm.get('range') as FormGroup).controls.end.errors;
+  get endYearError(): boolean {
+    return (this.budgetRatingsForm.get('endYear') as FormControl).value < 1850 || (this.budgetRatingsForm.get('endYear') as FormControl).value > 2021 && (this.budgetRatingsForm.get('endYear') as FormControl).touched;
+  }
+
+  get yearsError(): boolean {
+    return (this.budgetRatingsForm.get('endYear') as FormControl).value <= (this.budgetRatingsForm.get('endYear') as FormControl).value && (this.budgetRatingsForm.get('startYear') as FormControl).touched && (this.budgetRatingsForm.get('endYear') as FormControl).touched;
   }
 
   public onSubmit() {

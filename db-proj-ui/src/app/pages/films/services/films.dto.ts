@@ -6,7 +6,9 @@ export interface ISuccessfulSeasonDTO {
 }
 
 export interface IFilmRatingsDTO {
-
+    releaseDate: Date;
+    avgRating: number;
+    genre: string;
 }
 
 export interface IFilmBudgetsDTO {
@@ -19,5 +21,8 @@ export interface IFilmBudgetsDTO {
 }
 
 export interface IFilmBudgetRatingsDTO {
-    
+    month: number;
+    year: number;
+    rating: number;
+    budgetAvg: number;
 }

@@ -100,8 +100,6 @@ export class FilmSeasonsResultsComponent implements OnChanges, AfterViewInit {
     series.dataFields.dateX = 'year';
     series.name = name;
     series.cursorTooltipEnabled = false;
-    
-    series.tensionX = 0.8;
     series.showOnInit = true;
     var bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.tooltipText = '{name}: [bold]{valueY}[/]';

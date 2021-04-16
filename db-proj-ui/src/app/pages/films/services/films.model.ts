@@ -26,5 +26,8 @@ export interface IFilmBudgets {
 }
 
 export interface IFilmBudgetRatings {
-    
+    month: number;
+    year: number;
+    rating: number;
+    budgetAvg: number;
 }

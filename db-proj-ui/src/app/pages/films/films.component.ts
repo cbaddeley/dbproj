@@ -62,7 +62,7 @@ export class FilmsComponent {
   }
 
   public handleBudgetRatingsFormSubmit(formData: IBudgetRatingsFormData) {
-    this.service.searchFilmBudgetRatings().subscribe(data => {
+    this.service.searchFilmBudgetRatings(formData.ratings, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
     });

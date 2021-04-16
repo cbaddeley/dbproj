@@ -51,9 +51,9 @@ export class FilmService {
         );
     }
 
-    public searchFilmBudgetRatings(): Observable<IFilmBudgetRatings[]> {
+    public searchFilmBudgetRatings(ratings: string[], startDate: Date, endDate: Date): Observable<IFilmBudgetRatings[]> {
         this._fetching.next(true);
-        return this.dataService.getFilmBudgetRatings().pipe(
+        return this.dataService.getFilmBudgetRatings(ratings, formatDate(startDate), formatDate(endDate)).pipe(
             tap(() => this._fetching.next(false)),
             map((d) => this.mapFilmBudgetRatings(d))
         );
