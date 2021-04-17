@@ -1,8 +1,7 @@
 export function formatDate(date: Date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
 
     if (month.length < 2) 
         month = '0' + month;

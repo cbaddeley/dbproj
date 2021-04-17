@@ -41,7 +41,6 @@ export class FilmRatingsResultsComponent {
     this.chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
 
     this.chart.colors.step = 2;
-    console.log(this.data)
     this.chart.data = this.data.map((f) => {
       this.genres.add(f.genre);
       return {

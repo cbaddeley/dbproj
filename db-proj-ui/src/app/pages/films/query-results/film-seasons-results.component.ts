@@ -50,7 +50,6 @@ export class FilmSeasonsResultsComponent implements OnChanges, AfterViewInit {
     this.chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
 
     this.chart.colors.step = 2;
-
     this.chart.data = this.data.map((f) => {
       return {
         year: new Date(f.year, 0, 1),

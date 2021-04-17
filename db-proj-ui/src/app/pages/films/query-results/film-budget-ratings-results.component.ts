@@ -45,7 +45,7 @@ export class FilmBudgetRatingsResultsComponent {
     this.chart.data = this.data.map((f) => {
       this.ratings.add(f.rating);
       return {
-        date: new Date(f.year, f.month),
+        date: new Date(f.year, f.month - 1),
         [`${f.rating}`]: f.budgetAvg
       };
     });

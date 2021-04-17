@@ -47,7 +47,7 @@ export class FilmBudgetsResultsComponent implements OnChanges, AfterViewInit {
     this.chart.data = this.data.map((f) => {
       this.countryMap.set(f.countryCode, f.countryName);
       return {
-        date: new Date(f.year, f.month),
+        date: new Date(f.year, f.month - 1),
         [`${f.countryCode}budgetSum`]: f.budgetSum,
         [`${f.countryCode}budgetAvg`]: f.budgetAvg
       };

@@ -34,7 +34,7 @@ export class FilmsComponent {
   ) { }
 
   public handleSuccessFormSubmit(formData: ISeasonSuccessFormData) {
-    this.service.searchSuccessfulSeasons(formData.success, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
+    this.service.searchSuccessfulSeasons(formData.success, new Date(formData.startYear,0,1), new Date(formData.endYear,11,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
       if (formData.metric == 'roi') {
@@ -44,7 +44,7 @@ export class FilmsComponent {
   }
 
   public handleBudgetFormSubmit(formData: IBudgetFormData) {
-    this.service.searchFilmBudgets(formData.countries, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
+    this.service.searchFilmBudgets(formData.countries, new Date(formData.startYear,0,1), new Date(formData.endYear,11,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
       this.budgetCompareAverage = formData.compare;
@@ -59,7 +59,7 @@ export class FilmsComponent {
   }
 
   public handleBudgetRatingsFormSubmit(formData: IBudgetRatingsFormData) {
-    this.service.searchFilmBudgetRatings(formData.ratings, new Date(formData.startYear,1,1), new Date(formData.endYear,12,31)).subscribe(data => {
+    this.service.searchFilmBudgetRatings(formData.ratings, new Date(formData.startYear,0,1), new Date(formData.endYear,11,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
     });
