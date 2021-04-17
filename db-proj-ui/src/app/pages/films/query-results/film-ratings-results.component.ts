@@ -56,7 +56,7 @@ export class FilmRatingsResultsComponent {
     dateAxis.renderer.grid.template.location = 0;
   }
 
-  private createMetrixAxis(axisTitle: string) {
+  private createMetricAxis(axisTitle: string) {
     let valueAxis = this.chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.line.strokeOpacity = 1;
     valueAxis.renderer.line.strokeWidth = 2;
@@ -65,7 +65,7 @@ export class FilmRatingsResultsComponent {
 
   private createMetricAxisAndSeries() {
 
-      this.createMetrixAxis('Average Rating');
+      this.createMetricAxis('Average Rating');
       for (let genre of this.genres.keys()) {
         this.createSeries(`${genre}`);
       }

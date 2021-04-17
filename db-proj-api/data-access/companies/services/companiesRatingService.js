@@ -1,28 +1,44 @@
-const dataService = require("./companyDataService");
+const dataService = require("./companiesDataService");
 
-function mapCompany(dbCompany) {
+function mapCompanies(dbCompany) {
   return dbCompany.rows.map(d => {
     return {
-      year: d.YEAR,
-      month: d.MONTH,
-      rating: d.AVG_RATING,
-      budget_sum: d.BUDGET_SUM,
-      budget_per_rating: d.BUDGET_PER_RATING,
-      company_name: d.COMPANY_NAME,
+      releaseDate: d.RELEASE_DATE,
+      avgRating: d.AVG_RATING,
+      budget: d.BUDGET,
+      revenue: d.REVENUE,
+      roi: d.ROI,
+      companyName: d.COMPANY_NAME,
       title: d.TITLE
     }
   });
 }
 
-async function getCompany(startDate, endDate, company) {
+function mapCompanyNames(dbNames) {
+  return dbNames.rows.map(actor => {
+    return {
+      name: actor.COMPANY_NAME
+    }
+  }); 
+}
+
+async function getCompanies(company, startDate, endDate) {
   try {
-    var companyResults = await dataService.getBudgetRating(startDate, endDate, company);
-    return mapCompany(companyResults);
+    var companyResults = await dataService.getCompanies(company, startDate, endDate);
+    return mapCompanies(companyResults);
   } catch (err) {
     console.error(err);
   }
 }
 
-module.exports.getCompanyNames = getCompanyNames;
-module.exports.getCompaniesPart1 = getCompaniesPart1;
-module.exports.getCompaniesPart2 = getCompaniesPart2;
+async function findCompany(name) {
+  try {
+    var companies = await dataService.getCompanyNames(name);
+    return mapCompanyNames(companies);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+module.exports.findCompany = findCompany;
+module.exports.getCompanies = getCompanies;

@@ -10,7 +10,6 @@ async function getSeasonalQuartiles(quartile, startDate, endDate) {
     endDate: endDate
   },
 
-
   // For a complete list of options see the documentation.
   options = {
     outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format

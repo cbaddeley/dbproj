@@ -1,14 +1,12 @@
 const getCompanyNames = `SELECT * FROM Company WHERE UPPER(company_name) LIKE UPPER(:name) FETCH FIRST 5 ROWS ONLY`;
 
-const getCompaniesPart1 = `
+const getCompanies = `
 SELECT *
 FROM (
-    SELECT company_name, title, revenue, budget, (revenue / budget) * 100 AS roi, AVG(avg_rating) avg_rating, yr, mo
+    SELECT company_name, title, revenue, budget, (revenue / budget) * 100 AS roi, AVG(avg_rating) avg_rating, release_date
     FROM Production NATURAL JOIN COMPANY NATURAL JOIN (
         (
-            SELECT movie_id, imdb_id, title, revenue, budget,
-                EXTRACT(YEAR FROM release_date) yr, 
-                EXTRACT(MONTH FROM release_date) mo
+            SELECT movie_id, imdb_id, title, revenue, budget, release_date
             FROM Movie
             WHERE release_date between TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD')
                 AND revenue > 0 AND budget > 0
@@ -18,15 +16,10 @@ FROM (
             GROUP BY movie_id
             )
         )
-    GROUP BY company_name, title, revenue, budget, yr, mo
-    
+    GROUP BY company_name, title, revenue, budget, release_date
     )
-WHERE company_name in (`
-
-const getCompaniesPart2 = `
-    )
-ORDER BY yr DESC, mo DESC, revenue DESC, budget DESC, roi DESC, avg_rating DESC`
+    WHERE UPPER(company_name) LIKE UPPER(:company_name)
+    ORDER BY release_date`;
 
 module.exports.getCompanyNames = getCompanyNames;
-module.exports.getCompaniesPart1 = getCompaniesPart1;
-module.exports.getCompaniesPart2 = getCompaniesPart2;
+module.exports.getCompanies = getCompanies;

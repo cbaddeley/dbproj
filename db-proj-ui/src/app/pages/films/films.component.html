@@ -11,25 +11,25 @@
         routerLinkActive="queryIsActive"
         [routerLink]="['/films']"
         [queryParams]="{ query: 'seasons' }"
-        >Successful Seasons</a
+        >Seasonal</a
       >
       <a
         routerLinkActive="queryIsActive"
         [routerLink]="['/films']"
         [queryParams]="{ query: 'budgets' }"
-        >Budgets</a
+        >Geographical</a
       >
       <a
         routerLinkActive="queryIsActive"
         [routerLink]="['/films']"
         [queryParams]="{ query: 'ratings' }"
-        >Ratings</a
+        >Genre</a
       >
       <a
         routerLinkActive="queryIsActive"
         [routerLink]="['/films']"
         [queryParams]="{ query: 'budgetratings' }"
-        >Budgets/Ratings</a
+        >Budgets to Ratings Correlation</a
       >
     </div>
     <div class="page-form" [ngSwitch]="activeQuery | async">

@@ -18,7 +18,7 @@ export class ActorsComponent implements OnDestroy {
     shareReplay()
   );
 
-  public actorSuccessData: IActorSuccess[][] = [[]];
+  public actorSuccessData: IActorSuccess[] = [];
   public searched = false;
   public metricToDisplay!: 'ratings' | 'roi' | 'both';
 
@@ -28,7 +28,7 @@ export class ActorsComponent implements OnDestroy {
   ) { }
 
   public ngOnDestroy(): void {
-    this.actorSuccessData = [[]];
+    this.actorSuccessData = [];
   }
 
   public handleSuccessFormSubmit(formData: ISuccessFormValue[]) {
@@ -36,6 +36,19 @@ export class ActorsComponent implements OnDestroy {
       return this.actorService.searchActorSuccess(data.name, data.start, data.end)
     });
     forkJoin(requests).pipe(
+      map((data: IActorSuccess[][]) => {
+        let returnedData: IActorSuccess[] = [];
+        for (let i = 0; i < data.length; i++) {
+          returnedData = returnedData.concat(data[i].map(d => {
+            return {
+              ...d,
+              releaseDate: new Date(d.releaseDate)
+            }
+          }));
+        }
+        returnedData = returnedData.sort((a, b) => (b.releaseDate as any) - (a.releaseDate as any))
+        return returnedData;
+      })
     ).subscribe(data => {
       this.searched = true;
       this.actorSuccessData = data;

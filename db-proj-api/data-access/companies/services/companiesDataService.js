@@ -1,11 +1,11 @@
-const companiesQueries = require("../queries/comapniesQueries");
+const companiesQueries = require("../queries/companiesQueries");
 const oracledb = require("oracledb");
 var database = require("../../database");
 
 async function getCompanyNames(name) {
-  sql = companiesQueries.getCompanies;
+  sql = companiesQueries.getCompanyNames;
 
-  binds = {name: `%${name}%`}
+  binds = { name: `%${name}%` };
 
   // For a complete list of options see the documentation.
   options = {
@@ -19,27 +19,25 @@ async function getCompanyNames(name) {
   }
 }
 
-async function getCompanies(name, startDate, endDate) {
-sql = companyQueries.getCompanies;
-binds = {
-  name: `%${name}%`,
-  startDate: startDate,
-  endDate: endDate
-};
+async function getCompanies(company_name, startDate, endDate) {
+  sql = companiesQueries.getCompanies;
+  binds = {
+    company_name: `%${company_name}%`,
+    startDate: startDate,
+    endDate: endDate,
+  };
 
+  // For a complete list of options see the documentation.
+  options = {
+    outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
+  };
 
-// For a complete list of options see the documentation.
-options = {
-  outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
-};
-
-try {
-  return await database.connection.execute(sql, binds, options);
-} catch (err) {
-  console.error(err);
-}
+  try {
+    return await database.connection.execute(sql, binds, options);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 module.exports.getCompanyNames = getCompanyNames;
-module.exports.getCompaniesPart1 = getCompaniesPart1;
-module.exports.getCompaniesPart2 = getCompaniesPart2;
+module.exports.getCompanies = getCompanies;

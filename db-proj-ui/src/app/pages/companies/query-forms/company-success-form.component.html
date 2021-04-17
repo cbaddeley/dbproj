@@ -1,11 +1,11 @@
 <div class="form-wrapper">
   <div class="form-container">
     <div class="form-header" style="text-align: center">
-      <h1>Actor Success</h1>
+      <h1>Company Success</h1>
       <h2>Is there an observable trend of success?</h2>
     </div>
     <div class="divider"></div>
-    <form class="form" [formGroup]="actorSuccessForm">
+    <form class="form" [formGroup]="companySuccessForm">
       <div class="form-row">
         <div class="form-name-array" formArrayName="names">
           <ng-container *ngFor="let name of names.controls; index as i">
@@ -17,7 +17,7 @@
                 [formControlName]="i"
                 [matAutocomplete]="auto"
               />
-              <!-- <mat-error *ngIf="actorSuccessForm.get('name')?.invalid">Name is required</mat-error> -->
+              <!-- <mat-error *ngIf="companySuccessForm.get('name')?.invalid">Name is required</mat-error> -->
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                 <mat-option
                   *ngFor="let option of suggestions[i]"
@@ -30,7 +30,7 @@
             </mat-form-field>
 
           </ng-container>
-          <button (click)="addActor()">Add Actor</button>
+          <button (click)="addCompany()">Add Company</button>
       </div>
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
@@ -57,15 +57,30 @@
           <mat-error *ngIf="endDateError">Invalid end date</mat-error>
           
         </mat-form-field>
-        <div class="checkbox-group" style="margin-bottom: 5px;">
+        <div class="checkbox-group" style="margin-bottom: 5px">
           <mat-label>Metric</mat-label>
-          <mat-checkbox disableRipple formControlName="dollars" class="example-margin">Return on Investment</mat-checkbox>
-          <mat-checkbox disableRipple formControlName="ratings" class="example-margin">Movie Ratings</mat-checkbox>
-          <mat-error *ngIf="metricError">Metric Required</mat-error>
+          <mat-radio-group
+            [required]="true"
+            formControlName="metric"
+            class="radio-group"
+          >
+            <mat-radio-button [disableRipple]="true" value="roi"
+              >Return on Investment</mat-radio-button
+            >
+            <mat-radio-button [disableRipple]="true" value="ratings"
+              >Movie Ratings</mat-radio-button
+            >
+            <mat-radio-button [disableRipple]="true" value="budget"
+              >Movie Budgets</mat-radio-button
+            >
+            <mat-radio-button [disableRipple]="true" value="revenue"
+              >Movie Revenue</mat-radio-button
+            >
+          </mat-radio-group>
         </div>
       </div>
       <div class="form-row" style="flex-direction: row-reverse">
-        <button [ngClass]="{'btn--disabled': actorSuccessForm.invalid || range.invalid}" [disabled]="actorSuccessForm.invalid || range.invalid" (click)="onSubmit()">Submit</button>
+        <button [ngClass]="{'btn--disabled': companySuccessForm.invalid || range.invalid}" [disabled]="companySuccessForm.invalid || range.invalid" (click)="onSubmit()">Submit</button>
       </div>
     </form>
   </div>

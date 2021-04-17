@@ -19,7 +19,7 @@ export class ActorService {
         )
     }
     
-    public searchActorSuccess(name: string, startDate: Date, endDate: Date) {
+    public searchActorSuccess(name: string, startDate: Date, endDate: Date): Observable<IActorSuccess[]> {
         this._fetching.next(true);
         return this.dataService.getActorSuccessData(name, formatDate(startDate), formatDate(endDate)).pipe(
             tap(() => this._fetching.next(false)),
