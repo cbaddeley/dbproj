@@ -101,7 +101,7 @@ export class ActorSuccessResultsComponent implements AfterViewInit, OnChanges, O
           [`${f.actorName.replace(/\s/g, '')}Roi`]: f.avgROI
         };
     });
-
+    this.chart.dateFormatter.inputDateFormat = 'i';
     let dateAxis = this.chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.skipEmptyPeriods = true;
     dateAxis.renderer.minGridDistance = 50;

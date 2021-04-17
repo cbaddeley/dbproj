@@ -128,10 +128,10 @@ export class CompaniesSuccessResultsComponent
           [`${f.companyName.replace(/\s/g, '')}Revenue`]: f.revenue,
         };
     });
-
+    this.chart.dateFormatter.inputDateFormat = 'i';
     let dateAxis = this.chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.minGridDistance = 50;
     dateAxis.skipEmptyPeriods = true;
+    dateAxis.renderer.minGridDistance = 50;
     dateAxis.renderer.grid.template.location = 0;
   }
 

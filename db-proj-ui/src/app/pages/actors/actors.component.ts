@@ -46,7 +46,15 @@ export class ActorsComponent implements OnDestroy {
             }
           }));
         }
-        returnedData = returnedData.sort((a, b) => (b.releaseDate as any) - (a.releaseDate as any))
+        returnedData = returnedData.sort((a, b) => (a.releaseDate as any) - (b.releaseDate as any))
+        returnedData = returnedData.map(d => {
+          const date = new Date(d.releaseDate);
+          const isoDate = date.toISOString();
+          return {
+            ...d,
+            releaseDate: isoDate
+          }
+        })
         return returnedData;
       })
     ).subscribe(data => {
