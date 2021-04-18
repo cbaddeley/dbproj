@@ -112,6 +112,7 @@
     flex-direction: column;
     width: fit-content;
     height: fit-content;
+    white-space: nowrap;
 
     > a {
         display: flex;
