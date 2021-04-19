@@ -16,6 +16,7 @@ export interface IFilmRatings {
     releaseDate: string;
     avgRating: number;
     genre: string;
+    title: string;
 }
 
 export interface IFilmBudgets {

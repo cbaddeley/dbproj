@@ -132,6 +132,7 @@ export class FilmService {
         releaseDate: isoDate,
         avgRating: d.avgRating,
         genre: d.genre,
+        title: d.title
       };
     });
   }

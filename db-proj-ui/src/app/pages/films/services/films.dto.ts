@@ -9,6 +9,7 @@ export interface IFilmRatingsDTO {
     releaseDate: Date;
     avgRating: number;
     genre: string;
+    title: string;
 }
 
 export interface IFilmBudgetsDTO {

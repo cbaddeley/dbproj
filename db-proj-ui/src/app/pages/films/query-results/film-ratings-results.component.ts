@@ -45,7 +45,9 @@ export class FilmRatingsResultsComponent {
       this.genres.add(f.genre);
       return {
         date: f.releaseDate,
-        [`${f.genre}`]: f.avgRating
+        [`${f.genre}`]: f.avgRating,
+        [`${f.genre.replace(/\s/g, '')}Title`]: f.title,
+
       };
     });
     this.chart.dateFormatter.inputDateFormat = 'i';
@@ -66,11 +68,11 @@ export class FilmRatingsResultsComponent {
 
       this.createMetricAxis('Average Rating');
       for (let genre of this.genres.keys()) {
-        this.createSeries(`${genre}`);
+        this.createSeries(`${genre}`, `${genre.replace(/\s/g, '')}`);
       }
   }
 
-  private createSeries(field: string) {
+  private createSeries(field: string, movieTitleKey: string) {
     let series = this.chart.series.push(new am4charts.LineSeries());
     series.dataFields.valueY = field;
     series.dataFields.dateX = 'date';
@@ -78,7 +80,7 @@ export class FilmRatingsResultsComponent {
     series.cursorTooltipEnabled = false;
     series.showOnInit = true;
     var bullet = series.bullets.push(new am4charts.CircleBullet());
-    bullet.tooltipText = '{name}: [bold]{valueY}[/]';
+    bullet.tooltipText = `{${movieTitleKey}Title}: [bold]{valueY}[/]`;
     bullet.circle.stroke = am4core.color('#fff');
     bullet.circle.strokeWidth = 2;
   }
