@@ -41,7 +41,7 @@ export class FilmService {
   }
 
   public searchSuccessfulSeasons(
-    quartile: 'top_roi' | 'bottom_roi',
+    quartile: 'top_roi' | 'bottom_roi' | 'top_rating' | 'bottom_rating', 
     startDate: Date,
     endDate: Date
   ): Observable<ISuccessfulSeason[]> {

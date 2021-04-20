@@ -34,7 +34,17 @@ export class FilmsComponent {
   ) { }
 
   public handleSuccessFormSubmit(formData: ISeasonSuccessFormData) {
-    this.service.searchSuccessfulSeasons(formData.success, new Date(formData.startYear,0,1), new Date(formData.endYear,11,31)).subscribe(data => {
+    let quartile: 'top_roi' | 'bottom_roi' | 'top_rating' | 'bottom_rating';
+    if (formData.metric == 'roi') {
+      quartile = formData.success;
+    } else {
+      if (formData.success == 'top_roi') {
+        quartile = 'top_rating';
+      } else {
+        quartile = 'bottom_rating';
+      }
+    }
+    this.service.searchSuccessfulSeasons(quartile, new Date(formData.startYear,0,1), new Date(formData.endYear,11,31)).subscribe(data => {
       this.searched = true;
       this.results = data;
       if (formData.metric == 'roi') {

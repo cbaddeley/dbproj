@@ -22,7 +22,7 @@ export class FilmDataService {
         return this.http.get<IGenreDTO[]>(`${this.baseUrl}/genres`);
     }
 
-    public getSuccessfulSeasons(quartile: 'top_roi' | 'bottom_roi', startDate: string, endDate: string): Observable<ISuccessfulSeasonDTO[]> {
+    public getSuccessfulSeasons(quartile: 'top_roi' | 'bottom_roi' | 'top_rating' | 'bottom_rating', startDate: string, endDate: string): Observable<ISuccessfulSeasonDTO[]> {
         let params = new HttpParams();
         params = params.append('quartile', quartile);
         params = params.append('startDate', startDate);
