@@ -40,7 +40,7 @@ export class FilmBudgetRatingsResultsComponent {
     if (this.chart) this.chart.dispose();
     this.chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
 
-    this.chart.colors.step = 2;
+    this.chart.colors.step = 5;
 
     this.chart.data = this.data.map((f) => {
       this.ratings.add(f.rating);
@@ -78,10 +78,6 @@ export class FilmBudgetRatingsResultsComponent {
     series.name = field;
     series.cursorTooltipEnabled = false;
     series.showOnInit = true;
-    var bullet = series.bullets.push(new am4charts.CircleBullet());
-    bullet.tooltipText = '{name}: [bold]{valueY}[/]';
-    bullet.circle.stroke = am4core.color('#fff');
-    bullet.circle.strokeWidth = 2;
   }
   
 }

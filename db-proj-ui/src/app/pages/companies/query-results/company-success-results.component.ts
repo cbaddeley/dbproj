@@ -115,7 +115,7 @@ export class CompaniesSuccessResultsComponent
     this.companySet = new Set();
     if (this.chart) this.chart.dispose();
     this.chart = am4core.create(this.charRef?.nativeElement, am4charts.XYChart);
-    this.chart.colors.step = 2;
+    this.chart.colors.step = 5;
 
     this.chart.data = this.data.map((f) => {
         this.companySet.add(f.companyName);
